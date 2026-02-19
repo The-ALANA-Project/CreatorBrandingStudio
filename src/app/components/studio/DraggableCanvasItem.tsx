@@ -134,7 +134,6 @@ export function DraggableCanvasItem({
         }
       } catch (error) {
         // User cancelled or error occurred
-        console.log('Color picking cancelled');
       }
     } else {
       alert('Color picker is not supported in your browser. Please use Chrome, Edge, or another Chromium-based browser.');
@@ -389,22 +388,19 @@ export function DraggableCanvasItem({
             {item.content.image ? (
               // Visual link preview with image
               <div>
-                <div className="mb-3 -mx-3 -mt-3 rounded-t-lg overflow-hidden relative bg-white">
+                <div className="mb-3 -mx-3 -mt-3 rounded-t-lg overflow-hidden relative bg-muted">
                   <img 
                     src={item.content.image}
                     alt={item.content.title || 'Link preview'}
-                    className="w-full h-auto object-contain"
+                    className="w-full h-auto object-cover"
                     style={{ maxHeight: '400px' }}
-                    crossOrigin="anonymous"
+                    loading="lazy"
                     onError={(e) => {
-                      // If image fails to load, try without crossOrigin
-                      const img = e.target as HTMLImageElement;
-                      if (img.crossOrigin) {
-                        img.crossOrigin = '';
-                        img.src = item.content.image;
-                      } else {
-                        // If still fails, hide it
-                        img.style.display = 'none';
+                      console.error('Image load error:', item.content.image);
+                      // Hide the image container if it fails
+                      const container = e.currentTarget.parentElement;
+                      if (container) {
+                        container.style.display = 'none';
                       }
                     }}
                   />

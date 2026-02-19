@@ -143,10 +143,11 @@ export function FloatingToolbar({ onAddItem }: FloatingToolbarProps) {
       try {
         const eyeDropper = new (window as any).EyeDropper();
         const result = await eyeDropper.open();
+        // Open the screen picker modal with the picked color
         setSelectedColor(result.sRGBHex);
+        setShowScreenPicker(true);
       } catch (error) {
         // User cancelled or error occurred
-        console.log('Color picking cancelled');
       }
     } else {
       alert('Color picker is not supported in your browser. Please use Chrome, Edge, or another Chromium-based browser.');
@@ -293,7 +294,7 @@ export function FloatingToolbar({ onAddItem }: FloatingToolbarProps) {
                               setSelectedColor(result.sRGBHex);
                               setShowScreenPicker(true);
                             } catch (error) {
-                              console.log('Color picking cancelled');
+                              // User cancelled or error occurred
                             }
                           } else {
                             alert('Color picker is not supported in your browser. Please use Chrome, Edge, or another Chromium-based browser.');

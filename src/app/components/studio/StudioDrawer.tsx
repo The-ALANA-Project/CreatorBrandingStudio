@@ -115,15 +115,6 @@ export function StudioDrawer({
       // So max content = viewport - header - handle
       const maxContentHeight = ((viewportHeight - headerHeight - handleHeight) / viewportHeight) * 100;
       
-      // Debug logging
-      console.log('🔍 Drawer drag debug:', {
-        viewportHeight,
-        headerHeight,
-        handleHeight,
-        maxContentHeight: maxContentHeight.toFixed(2) + 'vh',
-        currentHeight: (dragStartHeight.current + deltaVh).toFixed(2) + 'vh',
-      });
-      
       const newHeight = Math.min(
         maxContentHeight, // Content height limit so total drawer doesn't exceed available space
         Math.max(

@@ -21,9 +21,14 @@ export default function Intro() {
 
   useEffect(() => {
     // Make container visible
+    if (!containerRef.current) return;
+    
     gsap.set(containerRef.current, { visibility: 'visible' });
 
     const lines = [line1Ref.current, line2Ref.current, line3Ref.current];
+    
+    // Check if all refs are available
+    if (!lines.every(line => line !== null)) return;
     
     // Split into three lines
     const textLines = ['Creator', 'Branding', 'Studio'];
@@ -58,14 +63,16 @@ export default function Intro() {
           transformStyle: 'preserve-3d' 
         });
 
-        // Show CTA after animation intro
-        gsap.to(ctaRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          delay: 2,
-          ease: 'power2.out'
-        });
+        // Show CTA after animation intro (only if ctaRef is available)
+        if (ctaRef.current) {
+          gsap.to(ctaRef.current, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            delay: 2,
+            ease: 'power2.out'
+          });
+        }
 
         // Timeline animation - with seamless looping
         tl = gsap.timeline({ repeat: -1 });
@@ -118,6 +125,12 @@ export default function Intro() {
   const handleBeginJourney = () => {
     sessionStorage.setItem('intro-seen', 'true');
     sessionStorage.setItem('intro-transitioning', 'true'); // Flag for Studio to fade in
+    
+    if (!containerRef.current) {
+      // If ref is not available, navigate immediately
+      navigate('/studio');
+      return;
+    }
     
     const tl = gsap.timeline({
       onComplete: () => navigate('/studio')

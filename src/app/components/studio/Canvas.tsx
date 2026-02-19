@@ -2,7 +2,7 @@ import { useRef, useState, useCallback, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import { DraggableCanvasItem } from './DraggableCanvasItem';
 import type { CanvasItem } from '@/app/pages/Studio';
-import { Home, ZoomIn, ZoomOut, Download, Upload, FileJson, FileImage, FileText, Trash2, Type, StickyNote, Square, Pipette } from 'lucide-react';
+import { Home, ZoomIn, ZoomOut, Download, Upload, FileJson, FileImage, FileText, Trash2, Type, StickyNote, Square, Link, ImagePlus } from 'lucide-react';
 
 interface CanvasProps {
   items: CanvasItem[];
@@ -28,12 +28,13 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
   const [showDownloadMenu, setShowDownloadMenu] = useState(false);
   const [showUploadMenu, setShowUploadMenu] = useState(false);
   const [showClearModal, setShowClearModal] = useState(false);
-  const [showColorPicker, setShowColorPicker] = useState(false);
-  const [selectedColor, setSelectedColor] = useState('#FEE6EA');
+  const [showLinkModal, setShowLinkModal] = useState(false);
+  const [linkUrl, setLinkUrl] = useState('');
+  const [isLoadingLinkPreview, setIsLoadingLinkPreview] = useState(false);
   const downloadMenuRef = useRef<HTMLDivElement>(null);
   const uploadMenuRef = useRef<HTMLDivElement>(null);
   const clearMenuRef = useRef<HTMLDivElement>(null);
-  const colorPickerRef = useRef<HTMLDivElement>(null);
+  const linkModalRef = useRef<HTMLDivElement>(null);
 
   // Snap to grid helper function (24px grid)
   const snapToGrid = (x: number, y: number) => {
@@ -135,59 +136,268 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
   // Add Title handler
   const handleAddTitle = useCallback(() => {
     if (onAddItem) {
-      const centerX = (window.innerWidth / 2 - pan.x) / scale;
-      const centerY = (window.innerHeight / 2 - pan.y) / scale;
-      const snapped = snapToGrid(centerX, centerY);
-      
       onAddItem({
         type: 'text',
         content: {
           text: 'Title',
           isTitle: true,
         },
-      }, snapped);
+      }); // Let Studio.tsx handle positioning with getRightmostPosition()
     }
-  }, [onAddItem, pan, scale, snapToGrid]);
+  }, [onAddItem]);
 
   // Add Note handler
   const handleAddNote = useCallback(() => {
     if (onAddItem) {
-      const centerX = (window.innerWidth / 2 - pan.x) / scale;
-      const centerY = (window.innerHeight / 2 - pan.y) / scale;
-      const snapped = snapToGrid(centerX, centerY);
-      
       onAddItem({
         type: 'text',
         content: {
           text: 'Note',
           isTitle: false,
         },
-      }, snapped);
+      }); // Let Studio.tsx handle positioning with getRightmostPosition()
     }
-  }, [onAddItem, pan, scale, snapToGrid]);
+  }, [onAddItem]);
 
   // Add Color Card handler
   const handleAddColorCard = useCallback(() => {
     if (onAddItem) {
-      const centerX = (window.innerWidth / 2 - pan.x) / scale;
-      const centerY = (window.innerHeight / 2 - pan.y) / scale;
-      const snapped = snapToGrid(centerX, centerY);
-      
       onAddItem({
         type: 'color',
         content: {
-          color: selectedColor,
+          color: '#FEE6EA',
           label: 'Color',
         },
-      }, snapped);
+      }); // Let Studio.tsx handle positioning with getRightmostPosition()
     }
-  }, [onAddItem, pan, scale, snapToGrid, selectedColor]);
+  }, [onAddItem]);
 
-  // Pick Color handler
-  const handlePickColor = useCallback((color: string) => {
-    setSelectedColor(color);
-    setShowColorPicker(false);
+  // Add Link Card handler
+  const handleAddLinkCard = useCallback(() => {
+    setShowLinkModal(true);
+    setLinkUrl('');
   }, []);
+
+  // Extract domain and title from any URL
+  const extractUrlInfo = (url: string): { domain: string; title: string; displayUrl: string } => {
+    try {
+      const urlObj = new URL(url);
+      const domain = urlObj.hostname.replace('www.', '');
+      
+      // Extract title from path
+      let title = 'Reference Link';
+      const pathParts = urlObj.pathname.split('/').filter(part => part.length > 0);
+      
+      if (domain.includes('behance.net')) {
+        const match = url.match(/\/gallery\/\d+\/([\w-]+)/);
+        if (match && match[1]) {
+          title = match[1].split('-').map(word => 
+            word.charAt(0).toUpperCase() + word.slice(1)
+          ).join(' ');
+        }
+      } else if (domain.includes('dribbble.com')) {
+        if (pathParts.length > 1) {
+          title = pathParts[1].split('-').map(word => 
+            word.charAt(0).toUpperCase() + word.slice(1)
+          ).join(' ');
+        }
+      } else if (domain.includes('pinterest.com')) {
+        if (pathParts.length > 1) {
+          title = pathParts[pathParts.length - 1].split('-').map(word => 
+            word.charAt(0).toUpperCase() + word.slice(1)
+          ).join(' ');
+        }
+      } else if (pathParts.length > 0) {
+        // Generic: use last path segment
+        title = pathParts[pathParts.length - 1]
+          .replace(/[-_]/g, ' ')
+          .split(' ')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+      } else {
+        title = domain.split('.')[0].charAt(0).toUpperCase() + domain.split('.')[0].slice(1);
+      }
+      
+      return {
+        domain,
+        title,
+        displayUrl: `${domain}${urlObj.pathname.substring(0, 40)}${urlObj.pathname.length > 40 ? '...' : ''}`,
+      };
+    } catch (e) {
+      return {
+        domain: url,
+        title: 'Link',
+        displayUrl: url,
+      };
+    }
+  };
+
+  // Fetch link preview using microlink.io free API
+  const fetchLinkPreview = async (url: string): Promise<{
+    domain: string;
+    title: string;
+    displayUrl: string;
+    image?: string;
+    description?: string;
+  }> => {
+    try {
+      const urlObj = new URL(url);
+      const domain = urlObj.hostname.replace('www.', '');
+      
+      // Use microlink.io with simplified parameters for better success rate
+      const apiUrl = `https://api.microlink.io/?url=${encodeURIComponent(url)}&screenshot=true&meta=false&palette=false&audio=false&video=false`;
+      
+      const response = await fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        console.warn(`Microlink API returned ${response.status}, using fallback`);
+        return extractUrlInfo(url);
+      }
+
+      const data = await response.json();
+
+      if (data.status === 'success' && data.data) {
+        // Prioritize the largest, most relevant image
+        let imageUrl = undefined;
+        
+        // 1. First try: og:image or main image (usually the hero/cover image)
+        if (data.data.image?.url) {
+          imageUrl = data.data.image.url;
+        }
+        
+        // 2. Try screenshot for visual preview
+        if (!imageUrl && data.data.screenshot?.url) {
+          imageUrl = data.data.screenshot.url;
+        }
+        
+        // 3. Last resort: use logo if it's reasonably sized
+        if (!imageUrl && data.data.logo?.url) {
+          const logoWidth = data.data.logo?.width || 0;
+          const logoHeight = data.data.logo?.height || 0;
+          
+          if (logoWidth > 100 || logoHeight > 100) {
+            imageUrl = data.data.logo.url;
+          }
+        }
+        
+        return {
+          domain,
+          title: data.data.title || extractUrlInfo(url).title,
+          displayUrl: `${domain}${urlObj.pathname.substring(0, 40)}${urlObj.pathname.length > 40 ? '...' : ''}`,
+          image: imageUrl,
+          description: data.data.description,
+        };
+      } else {
+        console.warn('Microlink returned unsuccessful status:', data.status);
+        return extractUrlInfo(url);
+      }
+    } catch (error) {
+      console.error('Error fetching preview:', error);
+      // Fallback to basic extraction
+      return extractUrlInfo(url);
+    }
+  };
+
+  // Submit link card
+  const handleSubmitLink = useCallback(async () => {
+    if (onAddItem && linkUrl.trim()) {
+      setIsLoadingLinkPreview(true);
+      try {
+        // Normalize URL
+        const normalizedUrl = linkUrl.startsWith('http') ? linkUrl : `https://${linkUrl}`;
+        
+        // Check if it's a direct image URL
+        const isDirectImage = /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(normalizedUrl);
+        
+        if (isDirectImage) {
+          // For direct image URLs, just use the URL as both link and image
+          const { domain, title, displayUrl } = extractUrlInfo(normalizedUrl);
+          
+          onAddItem({
+            type: 'link',
+            content: {
+              url: normalizedUrl,
+              title,
+              domain,
+              displayUrl,
+              image: normalizedUrl,
+            },
+          });
+          
+          setShowLinkModal(false);
+          setLinkUrl('');
+          setIsLoadingLinkPreview(false);
+          return;
+        }
+
+        // For regular URLs, fetch metadata and preview
+        const previewData = await fetchLinkPreview(normalizedUrl);
+        
+        onAddItem({
+          type: 'link',
+          content: {
+            url: normalizedUrl,
+            title: previewData.title,
+            domain: previewData.domain,
+            displayUrl: previewData.displayUrl,
+            image: previewData.image,
+            description: previewData.description,
+          },
+        });
+        
+        setShowLinkModal(false);
+        setLinkUrl('');
+        setIsLoadingLinkPreview(false);
+      } catch (e) {
+        // If URL parsing fails, just use the input as-is
+        onAddItem({
+          type: 'link',
+          content: {
+            url: linkUrl,
+            title: 'Link',
+            domain: linkUrl,
+            displayUrl: linkUrl,
+          },
+        });
+        
+        setShowLinkModal(false);
+        setLinkUrl('');
+        setIsLoadingLinkPreview(false);
+      }
+    }
+  }, [onAddItem, linkUrl]);
+
+  // Add Image handler (from device upload)
+  const handleAddImageFromDevice = useCallback(() => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const imageUrl = event.target?.result as string;
+          if (imageUrl && onAddItem) {
+            onAddItem({
+              type: 'image',
+              content: {
+                url: imageUrl,
+                alt: file.name,
+              },
+            }); // Let Studio.tsx handle positioning with getRightmostPosition()
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    input.click();
+  }, [onAddItem]);
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ['CARD', 'IMAGE', 'TEXT', 'COLOR', 'FONT_PAIRING', 'TYPOGRAPHY'],
@@ -435,10 +645,10 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
   }, []);
 
   useEffect(() => {
-    const currentRef = colorPickerRef.current;
+    const currentRef = linkModalRef.current;
     const handleClickOutside = (event: MouseEvent) => {
       if (currentRef && !currentRef.contains(event.target as Node)) {
-        setShowColorPicker(false);
+        setShowLinkModal(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -944,13 +1154,6 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
                         <span>JSON</span>
                       </button>
                     )}
-                    <button
-                      className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded-xl transition-all duration-100 text-left"
-                      onClick={handleUploadImage}
-                    >
-                      <FileImage className="w-4 h-4" />
-                      <span>Image</span>
-                    </button>
                   </div>
                 </div>
               </div>
@@ -1081,7 +1284,7 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
           </div>
         </div>
 
-        {/* Pick Color Button */}
+        {/* Add Link Card Button */}
         <div className="relative">
           <div className="relative flex overflow-hidden rounded-full shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] transition-all duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,2.2)] hover:shadow-[0_8px_8px_rgba(0,0,0,0.25),0_0_24px_rgba(0,0,0,0.15)]">
             {/* Glass Effect Layer */}
@@ -1113,14 +1316,106 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
             {/* Content Layer */}
             <button
               className="relative z-[3] w-12 h-12 flex items-center justify-center text-foreground transition-all duration-200 hover:scale-95"
-              onClick={() => setShowColorPicker(!showColorPicker)}
-              title="Pick Color"
+              onClick={handleAddLinkCard}
+              title="Add Link Card"
             >
-              <Pipette className="w-5 h-5" />
+              <Link className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Add Image Button */}
+        <div className="relative">
+          <div className="relative flex overflow-hidden rounded-full shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] transition-all duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,2.2)] hover:shadow-[0_8px_8px_rgba(0,0,0,0.25),0_0_24px_rgba(0,0,0,0.15)]">
+            {/* Glass Effect Layer */}
+            <div 
+              className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
+              style={{
+                backdropFilter: 'blur(3px)',
+                filter: 'url(#glass-distortion)',
+                isolation: 'isolate',
+              }}
+            />
+            
+            {/* Tint Layer */}
+            <div 
+              className="absolute inset-0 z-[1] pointer-events-none"
+              style={{
+                background: 'rgba(255, 255, 255, 0.15)',
+              }}
+            />
+            
+            {/* Shine Layer */}
+            <div 
+              className="absolute inset-0 z-[2] overflow-hidden pointer-events-none"
+              style={{
+                boxShadow: 'inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5), inset -1px -1px 1px 1px rgba(255, 255, 255, 0.5)',
+              }}
+            />
+            
+            {/* Content Layer */}
+            <button
+              className="relative z-[3] w-12 h-12 flex items-center justify-center text-foreground transition-all duration-200 hover:scale-95"
+              onClick={handleAddImageFromDevice}
+              title="Add Image"
+            >
+              <ImagePlus className="w-5 h-5" />
             </button>
           </div>
         </div>
       </div>
+
+      {/* Link Modal */}
+      {showLinkModal && (
+        <div className="absolute top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
+          <div 
+            ref={linkModalRef}
+            className="backdrop-blur-3xl bg-[#FEE6EA]/95 border border-[#131718] rounded-2xl shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-md w-full mx-4"
+          >
+            <h3 className="text-lg font-semibold mb-4">Add Link Card</h3>
+            <input
+              type="text"
+              className="w-full px-4 py-3 text-sm bg-card/80 backdrop-blur-2xl border border-[#131718] rounded-lg focus:outline-none focus:border-[#131718] transition-colors mb-4"
+              placeholder="Paste URL here..."
+              value={linkUrl}
+              onChange={(e) => setLinkUrl(e.target.value)}
+              onKeyDown={(e) => {
+                // Allow Cmd+A / Ctrl+A for select all - stop propagation so it doesn't get intercepted
+                if ((e.metaKey || e.ctrlKey) && (e.key.toLowerCase() === 'a')) {
+                  e.stopPropagation();
+                  return;
+                }
+                if (e.key === 'Enter' && !isLoadingLinkPreview) {
+                  handleSubmitLink();
+                } else if (e.key === 'Escape') {
+                  setShowLinkModal(false);
+                }
+              }}
+              autoFocus
+              disabled={isLoadingLinkPreview}
+            />
+            {isLoadingLinkPreview && (
+              <p className="text-xs text-muted-foreground text-center mb-4">Fetching preview...</p>
+            )}
+            <div className="flex gap-3">
+              <button
+                className="flex-1 px-4 py-2.5 bg-[#131718] text-white rounded-lg text-sm font-medium hover:bg-[#131718]/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                onClick={handleSubmitLink}
+                disabled={!linkUrl.trim() || isLoadingLinkPreview}
+              >
+                {isLoadingLinkPreview ? 'Loading...' : 'Add Link'}
+              </button>
+              <button
+                className="flex-1 px-4 py-2.5 bg-white/50 text-foreground rounded-lg text-sm font-medium hover:bg-white/70 transition-all"
+                onClick={() => setShowLinkModal(false)}
+                disabled={isLoadingLinkPreview}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Zoom Indicator */}
       <div className="absolute bottom-4 right-4 z-20" data-zoom-control="true">
