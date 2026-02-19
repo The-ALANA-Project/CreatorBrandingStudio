@@ -195,7 +195,7 @@ export default function Intro() {
       {/* CTA Button */}
       <div 
         ref={ctaRef} 
-        className="mt-20 opacity-0"
+        className="mt-12 mb-32 opacity-0"
         style={{ transform: 'translateY(20px)' }}
       >
         <button

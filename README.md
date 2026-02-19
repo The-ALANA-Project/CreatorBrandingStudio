@@ -1,92 +1,76 @@
-# Creator Pricing Calculator
+# Creator Branding Studio
 
-A free pricing calculator for creators and creative freelancers that converts your monthly or annual expenses into a baseline rate.
+An interactive personal branding journey studio that transforms your goals and aesthetics into a tailored personal brand concept in less than 30 minutes. Build your brand visually on a freeform canvas through a 10-step guided journey, then export a complete brief for a brand designer you hire or yourself to continue the work.
 
-## Features
+**This softwar is PROPRIETARY SOFTWARE - All Rights Reserved. This code is NOT open source. See LICENSE.txt for details.**
 
-- Calculate floor pricing based on expenses and business costs
-- Apply tax rate, emergency buffer, and reinvestment percentages
-- View pricing across multiple service types (hourly, project-based, day rates, retainers)
-- Export results as PNG, PDF, or JSON
-- Import previous calculations from JSON
-- Mobile-optimized with liquid glass aesthetic
+## Overview
 
-## SEO & Discoverability
+Creator Branding Studio is a minimalistic one-pager featuring a guided journey to help individual creators, small brands and freelancers to find where they stand and start expressing it visually for their audience.
+// Placeholder for an intro video.
 
-The app includes comprehensive SEO optimizations:
-- **Meta tags**: Title, description, keywords, author, robots
-- **Open Graph tags**: For Facebook, LinkedIn sharing
-- **Twitter Card tags**: For optimal Twitter/X previews
-- **Structured data**: JSON-LD schema for search engines
-- **Sitemap**: `/sitemap.xml` for search engine crawlers
-- **Robots.txt**: Allows all search engines to index the site
-- **Semantic HTML**: Proper use of header, main, nav, footer tags
-- **Canonical URL**: Prevents duplicate content issues
+## Journey Steps
+
+The 10-phase branding journey includes:
+
+1. **Goals Check** - Define what you want to achieve with your brand
+2. **Vibe Check** - Explore adjectives that describe your brand personality
+3. **Your Archetype** - Discover your core brand archetype
+4. **Core Motivations** - Understand what drives your creative work
+5. **Visual Lab** - Curate visual inspiration and mood boards
+6. **Typography** - Select typefaces that match your brand voice
+7. **Color Lab** - Build your brand color palette with mapping
+8. **Inspiration** - Collect reference links and inspiration sources
+9. **Design Principles** - Define your design elements and principles
+10. **Next Steps** - Get your final brief and actionable next steps
+
+## UI Features
+
+- **Drag & Drop Interface**: Powered by react-dnd for seamless card-to-canvas interaction
+- **Inline Editing**: Full text editing on canvas with Command/Ctrl+A support
+- **Dual Floating Toolbars**: Glass-styled toolbars for quick access to tools
+- **Zoom Controls**: Scale your canvas to see the big picture or focus on details
+- **Liquid Glass Design**: Apple-style glassmorphism with colors #FEE6EA and #131718
+- **Work Sans Typography**: Clean, professional typeface throughout
+- **Smooth Animations**: GSAP-powered transitions and intro animations
+- **Cookie Consent**: Bottom-attached banner with Google Analytics integration
+- **Mobile Responsive**: Optimized for all devices
+- **Developer Mode**: Hidden dev mode for unlocking all steps (for testing)
+
+## Design System
+
+- **Primary Pink**: `#FEE6EA` - Used for accents, buttons, highlights
+- **Dark Charcoal**: `#131718` - Primary text and UI elements
+- **Glassmorphism**: Backdrop blur effects with translucent backgrounds
+- **Typography**: Work Sans font family
 
 ## Tech Stack
 
-- React 18
-- TypeScript
-- Vite
+- React 18 with TypeScript
+- Vite build tool
 - Tailwind CSS v4
-- Radix UI components
-- Motion (Framer Motion)
-- html2canvas & jsPDF for exports
-
-## Development
-
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-```
-
-## Deployment
-
-This app is configured for Netlify deployment.
-
-### IMPORTANT: Before First Deploy
-
-**You need to manually add the favicon and OG image to GitHub AFTER deploying from Figma Make:**
-
-1. **Deploy from Figma Make first** (this creates placeholder files)
-2. **Go to your GitHub repo** → Navigate to the `/public` folder
-3. **Replace these two files:**
-   - `favicon.png` - Download from: https://github.com/user-attachments/assets/efeaa686-8807-48c4-a683-24c80ccf15fc
-   - `og-image.png` - Download from: https://github.com/user-attachments/assets/59ec8fc5-0c9c-4b4e-9b65-28542399c7f9
-4. **Upload them to GitHub** (delete the placeholder text files, upload the actual PNG images)
-5. **Netlify will auto-redeploy** and the images will work!
-
-**Why manual?** Figma Make can't create binary image files, only text files. The placeholders ensure the folder structure exists, then you replace them with real images in GitHub.
-
-1. Push changes to your GitHub repository
-2. Netlify will automatically build and deploy
-3. Build command: `npm run build`
-4. Publish directory: `dist`
+- React Router (Data mode) for navigation
+- Radix UI component library
+- Motion (motion/react) for animations
+- GSAP for advanced transitions and intro sequences
+- react-dnd + react-dnd-html5-backend for drag-and-drop
+- html2canvas-pro for canvas screenshots
+- jsPDF for PDF export generation
+- dom-to-image-more for image exports
+- Material UI (@mui/material) for select components
+- Recharts for any data visualization
+- sessionStorage for state persistence
 
 ## License
 
-MIT License
+**Copyright (c) 2026 Stella Achenbach. All Rights Reserved.**
 
-Copyright (c) 2026 Stella Achenbach
+This is **proprietary software**. This tool represents significant creative and technical work. While the repository is public for transparency, the code itself is protected intellectual property. This means:
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+- ❌ **NO copying** - You may not copy, clone, or fork this codebase
+- ❌ **NO modification** - You may not modify or create derivative works
+- ❌ **NO commercial use** - You may not use this code for commercial purposes
+- ❌ **NO redistribution** - You may not share, distribute, or sublicense this software
+- ✅ **Viewing only** - You may view the source code for educational purposes
+- ✅ **Official use only** - Use the tool through https://creator-branding.com/
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-### What This Means
-
-This project is **open source** under the MIT License, which means:
-- ✅ **You can use it freely** - Run, study, modify, and distribute this calculator
-- ✅ **You can modify it** - Adapt the code for your own needs or projects
-- ✅ **You can use it commercially** - Integrate it into your own products or services
-- ✅ **Attribution appreciated** - Keep the copyright notice and give credit to the original author
-
-The only requirement is to include the original copyright and license notice in any copies or substantial portions of the software. No warranty is provided - use at your own risk!
