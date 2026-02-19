@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Asset Copier</title>
+</head>
+<body>
+  <h1>Copying Assets...</h1>
+  <img id="og" src="" style="display:none" />
+  <img id="favicon" src="" style="display:none" />
+  
+  <script type="module">
+    import ogImage from '../src/generate-public-assets.ts?ogImage';
+    import favicon from '../src/generate-public-assets.ts?favicon';
+    
+    document.getElementById('og').src = ogImage;
+    document.getElementById('favicon').src = favicon;
+    
+    console.log('OG Image:', ogImage);
+    console.log('Favicon:', favicon);
+  </script>
+</body>
+</html>
