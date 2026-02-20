@@ -1464,11 +1464,7 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
           />
           
           {/* Content Layer */}
-          <div className="relative z-[3] px-4 py-2">
-            <span className="text-xs font-medium text-foreground">
-              {Math.round(scale * 100)}%
-            </span>
-          </div>
+          
         </div>
       </div>
     </div>

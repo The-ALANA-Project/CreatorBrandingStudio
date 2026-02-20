@@ -208,7 +208,7 @@ export default function Intro() {
       {/* CTA Button */}
       <div 
         ref={ctaRef} 
-        className="mt-8 mb-32 opacity-0 flex flex-col items-center"
+        className="mt-16 mb-32 opacity-0 flex flex-col items-center"
         style={{ transform: 'translateY(20px)' }}
       >
         <button
@@ -236,7 +236,7 @@ export default function Intro() {
         
         {/* Desktop Optimization Notice */}
         <p 
-          className="text-center mt-6 text-sm"
+          className="text-center mt-6 text-sm px-6"
           style={{ 
             color: 'rgba(254, 230, 234, 0.6)',
             maxWidth: '400px'
