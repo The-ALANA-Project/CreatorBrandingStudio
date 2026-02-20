@@ -2,7 +2,7 @@ import { useRef, useState, useCallback, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import { DraggableCanvasItem } from './DraggableCanvasItem';
 import type { CanvasItem } from '@/app/pages/Studio';
-import { Home, ZoomIn, ZoomOut, Download, Upload, FileJson, FileImage, FileText, Trash2, Type, StickyNote, Square, Link, ImagePlus } from 'lucide-react';
+import { Home, ZoomIn, ZoomOut, Download, Upload, FileJson, FileImage, FileText, Trash2, Type, StickyNote, Palette, Link, ImagePlus } from 'lucide-react';
 
 interface CanvasProps {
   items: CanvasItem[];
@@ -1279,7 +1279,7 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
               onClick={handleAddColorCard}
               title="Add Color Card"
             >
-              <Square className="w-5 h-5" />
+              <Palette className="w-5 h-5" />
             </button>
           </div>
         </div>
@@ -1399,7 +1399,7 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
             )}
             <div className="flex gap-3">
               <button
-                className="flex-1 px-4 py-2.5 bg-[#131718] text-white rounded-lg text-sm font-medium hover:bg-[#131718]/90 disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                className="flex-1 px-4 py-2.5 bg-[#131718] text-white border border-[#131718] rounded-lg text-sm font-medium hover:bg-[#FEE6EA] hover:text-[#131718] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                 onClick={handleSubmitLink}
                 disabled={!linkUrl.trim() || isLoadingLinkPreview}
               >
