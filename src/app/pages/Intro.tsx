@@ -159,7 +159,7 @@ export default function Intro() {
       <div 
         ref={tubeRef} 
         className="relative w-full flex flex-col items-center justify-center"
-        style={{ height: '40vw' }}
+        style={{ height: 'clamp(300px, 30vw, 500px)' }}
       >
         <h1 
           ref={line1Ref}
@@ -167,7 +167,7 @@ export default function Intro() {
           style={{
             lineHeight: 1.2,
             letterSpacing: '-0.4vw',
-            fontSize: '16vw',
+            fontSize: 'clamp(80px, 14vw, 200px)',
             color: '#FEE6EA',
             backfaceVisibility: 'hidden',
             willChange: 'transform'
@@ -181,7 +181,7 @@ export default function Intro() {
           style={{
             lineHeight: 1.2,
             letterSpacing: '-0.4vw',
-            fontSize: '16vw',
+            fontSize: 'clamp(80px, 14vw, 200px)',
             color: '#FEE6EA',
             backfaceVisibility: 'hidden',
             willChange: 'transform'
@@ -195,7 +195,7 @@ export default function Intro() {
           style={{
             lineHeight: 1.2,
             letterSpacing: '-0.4vw',
-            fontSize: '16vw',
+            fontSize: 'clamp(80px, 14vw, 200px)',
             color: '#FEE6EA',
             backfaceVisibility: 'hidden',
             willChange: 'transform'
@@ -208,7 +208,7 @@ export default function Intro() {
       {/* CTA Button */}
       <div 
         ref={ctaRef} 
-        className="mt-12 mb-32 opacity-0 flex flex-col items-center"
+        className="mt-8 mb-32 opacity-0 flex flex-col items-center"
         style={{ transform: 'translateY(20px)' }}
       >
         <button
