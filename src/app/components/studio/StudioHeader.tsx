@@ -20,14 +20,14 @@ export function StudioHeader() {
               onClick={handleReplayIntro}
               className="group relative flex-shrink-0 rounded-full transition-all duration-200 flex items-center justify-center"
               style={{
-                width: 'clamp(1rem, 2vw, 1.5rem)',
-                height: 'clamp(1rem, 2vw, 1.5rem)',
-                border: '2px solid #fee6ea'
+                width: 'clamp(2rem, 4vw, 3rem)',
+                height: 'clamp(2rem, 4vw, 3rem)',
+                border: '3px solid #fee6ea'
               }}
               title="Replay Intro Animation"
             >
               <div 
-                className="rounded-full bg-[#fee6ea] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                className="rounded-full bg-[#fee6ea] opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-[1.3] transition-all duration-200"
                 style={{
                   width: '40%',
                   height: '40%'
