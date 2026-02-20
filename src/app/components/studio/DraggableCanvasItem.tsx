@@ -368,6 +368,15 @@ export function DraggableCanvasItem({
                   src={item.content.url}
                   alt={item.content.alt || item.content.caption || 'Canvas item'}
                   className="w-full h-auto rounded"
+                  crossOrigin="anonymous"
+                  onError={(e) => {
+                    // If CORS fails, retry without crossOrigin
+                    const img = e.currentTarget;
+                    if (img.crossOrigin) {
+                      img.crossOrigin = '';
+                      img.src = img.src; // Trigger reload
+                    }
+                  }}
                 />
                 {item.content.caption && (
                   <p className="text-center text-sm font-medium lowercase mt-2">{item.content.caption}</p>
@@ -383,6 +392,7 @@ export function DraggableCanvasItem({
             target="_blank"
             rel="noopener noreferrer"
             className="block group/link"
+            draggable="false"
           >
             {/* Link preview card - clean design matching other cards */}
             {item.content.image ? (
@@ -395,12 +405,19 @@ export function DraggableCanvasItem({
                     className="w-full h-auto object-cover"
                     style={{ maxHeight: '400px' }}
                     loading="lazy"
+                    crossOrigin="anonymous"
                     onError={(e) => {
-                      console.error('Image load error:', item.content.image);
-                      // Hide the image container if it fails
-                      const container = e.currentTarget.parentElement;
-                      if (container) {
-                        container.style.display = 'none';
+                      // If CORS fails, retry without crossOrigin
+                      const img = e.currentTarget;
+                      if (img.crossOrigin) {
+                        img.crossOrigin = '';
+                        img.src = img.src; // Trigger reload
+                      } else {
+                        // If still fails, hide the image container
+                        const container = img.parentElement;
+                        if (container) {
+                          container.style.display = 'none';
+                        }
                       }
                     }}
                   />

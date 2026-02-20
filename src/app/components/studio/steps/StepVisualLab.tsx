@@ -805,149 +805,157 @@ export function StepVisualLab({ onAddItem, onAddItemsVertical, onAddItemsHorizon
               const pair2 = imagePairs[pair2Index];
               
               return (
-                <div key={rowIndex} className="grid grid-cols-4 gap-3">
-                  {/* Pair 1 - Option A */}
-                  <motion.button
-                    onClick={() => selectImage(pair1Index, 'A')}
-                    className={`
-                      group relative overflow-hidden rounded-[10px] bg-card border transition-all cursor-pointer
-                      ${getSelectedOption(pair1Index) === 'A' 
-                        ? 'border-primary' 
-                        : getSelectedOption(pair1Index) === 'B'
-                        ? 'border-border opacity-50'
-                        : 'border-border hover:border-primary'
-                      }
-                    `}
-                    whileHover={{ scale: getSelectedOption(pair1Index) === 'B' ? 1 : 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <div className="aspect-[3/4] relative">
-                      <img 
-                        src={pair1.optionA.url} 
-                        alt={pair1.optionA.label}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0" />
-                      <div className="absolute bottom-0 left-0 right-0 p-3">
-                        <p className="text-white text-sm font-medium">{pair1.optionA.label}</p>
-                      </div>
-                      {getSelectedOption(pair1Index) === 'A' && (
-                        <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
-                          <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
-                            ✓
+                <div key={rowIndex} className="flex gap-6">
+                  {/* Pair 1 Container */}
+                  <div className="flex-1 backdrop-blur-sm bg-white/5 border border-white/10 rounded-2xl p-3">
+                    <div className="grid grid-cols-2 gap-3">
+                      {/* Pair 1 - Option A */}
+                      <motion.button
+                        onClick={() => selectImage(pair1Index, 'A')}
+                        className={`
+                          group relative overflow-hidden rounded-[10px] bg-card border transition-all cursor-pointer
+                          ${getSelectedOption(pair1Index) === 'A' 
+                            ? 'border-primary' 
+                            : getSelectedOption(pair1Index) === 'B'
+                            ? 'border-border opacity-50'
+                            : 'border-border hover:border-primary'
+                          }
+                        `}
+                        whileHover={{ scale: getSelectedOption(pair1Index) === 'B' ? 1 : 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <div className="aspect-[3/4] relative">
+                          <img 
+                            src={pair1.optionA.url} 
+                            alt={pair1.optionA.label}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0" />
+                          <div className="absolute bottom-0 left-0 right-0 p-3">
+                            <p className="hidden text-white text-sm font-medium">{pair1.optionA.label}</p>
                           </div>
-                        </div>
-                      )}
-                    </div>
-                  </motion.button>
-
-                  {/* Pair 1 - Option B */}
-                  <motion.button
-                    onClick={() => selectImage(pair1Index, 'B')}
-                    className={`
-                      group relative overflow-hidden rounded-[10px] bg-card border transition-all cursor-pointer
-                      ${getSelectedOption(pair1Index) === 'B' 
-                        ? 'border-primary' 
-                        : getSelectedOption(pair1Index) === 'A'
-                        ? 'border-border opacity-50'
-                        : 'border-border hover:border-primary'
-                      }
-                    `}
-                    whileHover={{ scale: getSelectedOption(pair1Index) === 'A' ? 1 : 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <div className="aspect-[3/4] relative">
-                      <img 
-                        src={pair1.optionB.url} 
-                        alt={pair1.optionB.label}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0" />
-                      <div className="absolute bottom-0 left-0 right-0 p-3">
-                        <p className="text-white text-sm font-medium">{pair1.optionB.label}</p>
-                      </div>
-                      {getSelectedOption(pair1Index) === 'B' && (
-                        <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
-                          <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
-                            ✓
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </motion.button>
-
-                  {/* Pair 2 - Option A (if exists) */}
-                  {pair2 && (
-                    <motion.button
-                      onClick={() => selectImage(pair2Index, 'A')}
-                      className={`
-                        group relative overflow-hidden rounded-[10px] bg-card border transition-all cursor-pointer
-                        ${getSelectedOption(pair2Index) === 'A' 
-                          ? 'border-primary' 
-                          : getSelectedOption(pair2Index) === 'B'
-                          ? 'border-border opacity-50'
-                          : 'border-border hover:border-primary'
-                        }
-                      `}
-                      whileHover={{ scale: getSelectedOption(pair2Index) === 'B' ? 1 : 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <div className="aspect-[3/4] relative">
-                        <img 
-                          src={pair2.optionA.url} 
-                          alt={pair2.optionA.label}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0" />
-                        <div className="absolute bottom-0 left-0 right-0 p-3">
-                          <p className="text-white text-sm font-medium">{pair2.optionA.label}</p>
-                        </div>
-                        {getSelectedOption(pair2Index) === 'A' && (
-                          <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
-                            <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
-                              ✓
+                          {getSelectedOption(pair1Index) === 'A' && (
+                            <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
+                              <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
+                                ✓
+                              </div>
                             </div>
-                          </div>
-                        )}
-                      </div>
-                    </motion.button>
-                  )}
-
-                  {/* Pair 2 - Option B (if exists) */}
-                  {pair2 && (
-                    <motion.button
-                      onClick={() => selectImage(pair2Index, 'B')}
-                      className={`
-                        group relative overflow-hidden rounded-[10px] bg-card border transition-all cursor-pointer
-                        ${getSelectedOption(pair2Index) === 'B' 
-                          ? 'border-primary' 
-                          : getSelectedOption(pair2Index) === 'A'
-                          ? 'border-border opacity-50'
-                          : 'border-border hover:border-primary'
-                        }
-                      `}
-                      whileHover={{ scale: getSelectedOption(pair2Index) === 'A' ? 1 : 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <div className="aspect-[3/4] relative">
-                        <img 
-                          src={pair2.optionB.url} 
-                          alt={pair2.optionB.label}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0" />
-                        <div className="absolute bottom-0 left-0 right-0 p-3">
-                          <p className="text-white text-sm font-medium">{pair2.optionB.label}</p>
+                          )}
                         </div>
-                        {getSelectedOption(pair2Index) === 'B' && (
-                          <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
-                            <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
-                              ✓
-                            </div>
+                      </motion.button>
+
+                      {/* Pair 1 - Option B */}
+                      <motion.button
+                        onClick={() => selectImage(pair1Index, 'B')}
+                        className={`
+                          group relative overflow-hidden rounded-[10px] bg-card border transition-all cursor-pointer
+                          ${getSelectedOption(pair1Index) === 'B' 
+                            ? 'border-primary' 
+                            : getSelectedOption(pair1Index) === 'A'
+                            ? 'border-border opacity-50'
+                            : 'border-border hover:border-primary'
+                          }
+                        `}
+                        whileHover={{ scale: getSelectedOption(pair1Index) === 'A' ? 1 : 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <div className="aspect-[3/4] relative">
+                          <img 
+                            src={pair1.optionB.url} 
+                            alt={pair1.optionB.label}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0" />
+                          <div className="absolute bottom-0 left-0 right-0 p-3">
+                            <p className="hidden text-white text-sm font-medium">{pair1.optionB.label}</p>
                           </div>
-                        )}
+                          {getSelectedOption(pair1Index) === 'B' && (
+                            <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
+                              <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
+                                ✓
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </motion.button>
+                    </div>
+                  </div>
+
+                  {/* Pair 2 Container (if exists) */}
+                  {pair2 && (
+                    <div className="flex-1 backdrop-blur-sm bg-white/5 border border-white/10 rounded-2xl p-3">
+                      <div className="grid grid-cols-2 gap-3">
+                        {/* Pair 2 - Option A */}
+                        <motion.button
+                          onClick={() => selectImage(pair2Index, 'A')}
+                          className={`
+                            group relative overflow-hidden rounded-[10px] bg-card border transition-all cursor-pointer
+                            ${getSelectedOption(pair2Index) === 'A' 
+                              ? 'border-primary' 
+                              : getSelectedOption(pair2Index) === 'B'
+                              ? 'border-border opacity-50'
+                              : 'border-border hover:border-primary'
+                            }
+                          `}
+                          whileHover={{ scale: getSelectedOption(pair2Index) === 'B' ? 1 : 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <div className="aspect-[3/4] relative">
+                            <img 
+                              src={pair2.optionA.url} 
+                              alt={pair2.optionA.label}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0" />
+                            <div className="absolute bottom-0 left-0 right-0 p-3">
+                              <p className="hidden text-white text-sm font-medium">{pair2.optionA.label}</p>
+                            </div>
+                            {getSelectedOption(pair2Index) === 'A' && (
+                              <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
+                                <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
+                                  ✓
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </motion.button>
+
+                        {/* Pair 2 - Option B */}
+                        <motion.button
+                          onClick={() => selectImage(pair2Index, 'B')}
+                          className={`
+                            group relative overflow-hidden rounded-[10px] bg-card border transition-all cursor-pointer
+                            ${getSelectedOption(pair2Index) === 'B' 
+                              ? 'border-primary' 
+                              : getSelectedOption(pair2Index) === 'A'
+                              ? 'border-border opacity-50'
+                              : 'border-border hover:border-primary'
+                            }
+                          `}
+                          whileHover={{ scale: getSelectedOption(pair2Index) === 'A' ? 1 : 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <div className="aspect-[3/4] relative">
+                            <img 
+                              src={pair2.optionB.url} 
+                              alt={pair2.optionB.label}
+                              className="w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0" />
+                            <div className="absolute bottom-0 left-0 right-0 p-3">
+                              <p className="hidden text-white text-sm font-medium">{pair2.optionB.label}</p>
+                            </div>
+                            {getSelectedOption(pair2Index) === 'B' && (
+                              <div className="absolute inset-0 bg-primary/20 flex items-center justify-center">
+                                <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg">
+                                  ✓
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </motion.button>
                       </div>
-                    </motion.button>
+                    </div>
                   )}
                 </div>
               );
@@ -1056,6 +1064,41 @@ export function StepVisualLab({ onAddItem, onAddItemsVertical, onAddItemsHorizon
             </p>
           </div>
 
+          {/* Adjective chips - Always on top */}
+          <div className="backdrop-blur-2xl bg-card/80 border border-border rounded-2xl p-6 mb-6">
+            <h3 className="font-semibold mb-4">
+              {isFiltering ? 'All Your Adjectives - Click to select' : 'Your Shortlist'}
+            </h3>
+            <div className="flex flex-wrap gap-3">
+              {displayAdjectives.map((adj, idx) => {
+                const isSelected = isFiltering 
+                  ? shortlistedAdjectives.includes(adj)
+                  : selectedForTriangle.includes(adj);
+                const isDisabled = isFiltering 
+                  ? !shortlistedAdjectives.includes(adj) && shortlistedAdjectives.length >= 6
+                  : !selectedForTriangle.includes(adj) && selectedForTriangle.length >= 3;
+
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => isFiltering ? toggleShortlistSelection(adj) : toggleTriangleSelection(adj)}
+                    disabled={isDisabled}
+                    className={`
+                      px-4 py-2 rounded-full text-sm font-medium transition-all
+                      ${isSelected
+                        ? 'bg-primary text-primary-foreground shadow-md scale-105'
+                        : 'bg-muted hover:bg-muted/80 text-foreground'
+                      }
+                      ${isDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}
+                    `}
+                  >
+                    {adj}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Selected Triangle Preview */}
           {!isFiltering && selectedForTriangle.length > 0 && (
             <div className="mb-6 backdrop-blur-2xl bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/30 rounded-lg p-6">
@@ -1095,41 +1138,6 @@ export function StepVisualLab({ onAddItem, onAddItemsVertical, onAddItemsHorizon
               </div>
             </div>
           )}
-
-          {/* Adjective chips */}
-          <div className="backdrop-blur-2xl bg-card/80 border border-border rounded-2xl p-6 mb-6">
-            <h3 className="font-semibold mb-4">
-              {isFiltering ? 'All Your Adjectives - Click to select' : 'Your Shortlist'}
-            </h3>
-            <div className="flex flex-wrap gap-3">
-              {displayAdjectives.map((adj, idx) => {
-                const isSelected = isFiltering 
-                  ? shortlistedAdjectives.includes(adj)
-                  : selectedForTriangle.includes(adj);
-                const isDisabled = isFiltering 
-                  ? !shortlistedAdjectives.includes(adj) && shortlistedAdjectives.length >= 6
-                  : !selectedForTriangle.includes(adj) && selectedForTriangle.length >= 3;
-
-                return (
-                  <button
-                    key={idx}
-                    onClick={() => isFiltering ? toggleShortlistSelection(adj) : toggleTriangleSelection(adj)}
-                    disabled={isDisabled}
-                    className={`
-                      px-4 py-2 rounded-full text-sm font-medium transition-all
-                      ${isSelected
-                        ? 'bg-primary text-primary-foreground shadow-md scale-105'
-                        : 'bg-muted hover:bg-muted/80 text-foreground'
-                      }
-                      ${isDisabled ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer'}
-                    `}
-                  >
-                    {adj}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
 
           <div className="flex justify-between items-center pt-4 border-t border-[#131718]">
             <Button

@@ -594,16 +594,7 @@ export function StepInspiration({ onAddItem, onNext, journeyData, onUpdateJourne
   };
 
   const handleContinue = () => {
-    // Add a summary card to canvas
-    onAddItem({
-      type: 'card',
-      content: {
-        title: 'Visual References',
-        description: 'Explore inspiration sources, copy image URLs, and add them using the floating toolbar',
-        tags: platforms.map(p => p.name),
-      },
-    });
-    
+    // Just proceed to next step
     onNext();
   };
 

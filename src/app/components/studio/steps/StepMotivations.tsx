@@ -82,6 +82,108 @@ const archetypeMotivations: Record<string, {
       'Create safe, inclusive spaces',
     ],
   },
+  hero: {
+    motivations: [
+      'Inspire others to overcome challenges',
+      'Prove what\'s possible through action',
+      'Make a measurable impact',
+    ],
+    fears: [
+      'Failure or defeat',
+      'Being seen as weak',
+      'Not living up to expectations',
+    ],
+    desires: [
+      'Be recognized for your achievements',
+      'Empower others to rise',
+      'Leave a legacy of courage',
+    ],
+  },
+  magician: {
+    motivations: [
+      'Transform dreams into reality',
+      'Create magical experiences',
+      'Show others what\'s possible',
+    ],
+    fears: [
+      'Being exposed as inauthentic',
+      'Losing the ability to inspire',
+      'Creating empty promises',
+    ],
+    desires: [
+      'Be seen as transformative',
+      'Help others believe in possibility',
+      'Create moments that change lives',
+    ],
+  },
+  explorer: {
+    motivations: [
+      'Discover new experiences',
+      'Live authentically and freely',
+      'Break boundaries and conventions',
+    ],
+    fears: [
+      'Being trapped or confined',
+      'Missing out on experiences',
+      'Losing your independence',
+    ],
+    desires: [
+      'Live life on your own terms',
+      'Inspire others to explore',
+      'Find and share authentic experiences',
+    ],
+  },
+  lover: {
+    motivations: [
+      'Create deep emotional connections',
+      'Celebrate beauty and passion',
+      'Build intimate relationships',
+    ],
+    fears: [
+      'Being unloved or rejected',
+      'Emotional disconnection',
+      'Living without passion',
+    ],
+    desires: [
+      'Be deeply connected with others',
+      'Create emotionally resonant work',
+      'Celebrate what makes life beautiful',
+    ],
+  },
+  jester: {
+    motivations: [
+      'Bring joy and lightness to others',
+      'Find humor in everyday moments',
+      'Remind people not to take life too seriously',
+    ],
+    fears: [
+      'Being boring or irrelevant',
+      'Not being taken seriously when it matters',
+      'Losing your sense of play',
+    ],
+    desires: [
+      'Make people smile and laugh',
+      'Create moments of spontaneous joy',
+      'Be remembered for bringing lightness',
+    ],
+  },
+  ruler: {
+    motivations: [
+      'Build something that lasts',
+      'Lead with authority and clarity',
+      'Create order and stability',
+    ],
+    fears: [
+      'Losing control or authority',
+      'Being undermined or disrespected',
+      'Creating chaos or instability',
+    ],
+    desires: [
+      'Be recognized as a leader',
+      'Build a lasting legacy',
+      'Create systems that work',
+    ],
+  },
 };
 
 export function StepMotivations({ onAddItem, onNext, journeyData, onUpdateJourneyData }: StepMotivationsProps) {

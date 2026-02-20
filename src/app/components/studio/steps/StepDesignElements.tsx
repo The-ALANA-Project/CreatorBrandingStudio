@@ -2,7 +2,7 @@ import { Button } from '@/app/components/ui/button';
 import type { CanvasItem, JourneyData } from '@/app/pages/Studio';
 import { useDrag } from 'react-dnd';
 import { useState, useEffect } from 'react';
-import { Plus, GripVertical, Trash2 } from 'lucide-react';
+import { Plus, GripVertical, Trash2, Sparkles, Type, Image, Grid, Palette, ArrowRight } from 'lucide-react';
 
 interface StepDesignElementsProps {
   onAddItem: (item: Omit<CanvasItem, 'id' | 'position'>) => void;
@@ -183,19 +183,95 @@ export function StepDesignElements({ onAddItem, onAddItemsVertical, onNext, jour
       {principles.length === 0 && (
         <div className="mb-6">
           <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-            Example Principles for Inspiration
+            Need Inspiration? Pick a Category
           </h3>
-          <div className="grid grid-cols-1 gap-2">
-            {examplePrompts.map((prompt, index) => (
-              <button
-                key={index}
-                onClick={() => setNewPrinciple(prompt)}
-                className="text-left px-4 py-3 bg-card/20 backdrop-blur-2xl border border-border/50 rounded-lg text-sm text-muted-foreground hover:border-[#131718] hover:bg-[#FEE6EA]/10 hover:text-foreground transition-all"
-              >
-                {prompt}
-              </button>
-            ))}
+          <div className="grid grid-cols-2 gap-3 mb-6">
+            {/* Typography */}
+            <button
+              onClick={() => setNewPrinciple("Bold typography as the hero - minimal decoration, let words speak")}
+              className="group relative bg-gradient-to-br from-[#131718] to-[#2a2d2e] rounded-xl p-5 text-left hover:scale-[1.02] transition-transform overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#FEE6EA]/10 rounded-full blur-2xl" />
+              <Type className="w-6 h-6 text-[#FEE6EA] mb-3" />
+              <h4 className="text-white font-semibold mb-1">Typography</h4>
+              <p className="text-white/60 text-xs leading-relaxed">
+                Bold type as hero, minimal decoration
+              </p>
+            </button>
+
+            {/* Layout */}
+            <button
+              onClick={() => setNewPrinciple("Use generous white space - designs should breathe, never feel cramped")}
+              className="group relative bg-gradient-to-br from-[#131718] to-[#2a2d2e] rounded-xl p-5 text-left hover:scale-[1.02] transition-transform overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#FEE6EA]/10 rounded-full blur-2xl" />
+              <Grid className="w-6 h-6 text-[#FEE6EA] mb-3" />
+              <h4 className="text-white font-semibold mb-1">Layout</h4>
+              <p className="text-white/60 text-xs leading-relaxed">
+                Generous space, let designs breathe
+              </p>
+            </button>
+
+            {/* Imagery */}
+            <button
+              onClick={() => setNewPrinciple("Photography should feel candid and human, not staged or sterile")}
+              className="group relative bg-gradient-to-br from-[#131718] to-[#2a2d2e] rounded-xl p-5 text-left hover:scale-[1.02] transition-transform overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#FEE6EA]/10 rounded-full blur-2xl" />
+              <Image className="w-6 h-6 text-[#FEE6EA] mb-3" />
+              <h4 className="text-white font-semibold mb-1">Imagery</h4>
+              <p className="text-white/60 text-xs leading-relaxed">
+                Candid, human, never staged
+              </p>
+            </button>
+
+            {/* Color */}
+            <button
+              onClick={() => setNewPrinciple("Vibrant color as accents only - restrained but impactful")}
+              className="group relative bg-gradient-to-br from-[#131718] to-[#2a2d2e] rounded-xl p-5 text-left hover:scale-[1.02] transition-transform overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-20 h-20 bg-[#FEE6EA]/10 rounded-full blur-2xl" />
+              <Palette className="w-6 h-6 text-[#FEE6EA] mb-3" />
+              <h4 className="text-white font-semibold mb-1">Color</h4>
+              <p className="text-white/60 text-xs leading-relaxed">
+                Vibrant accents, restrained impact
+              </p>
+            </button>
           </div>
+
+          {/* More Examples - Compact List */}
+          <details className="group/details">
+            <summary className="cursor-pointer list-none flex items-center justify-between px-4 py-3 bg-card/20 backdrop-blur-2xl border border-border/50 rounded-lg hover:border-[#131718] hover:bg-[#FEE6EA]/10 transition-all">
+              <span className="text-sm font-medium">View More Examples</span>
+              <ArrowRight className="w-4 h-4 text-muted-foreground group-hover/details:translate-x-1 transition-transform" />
+            </summary>
+            <div className="mt-2 space-y-1.5 pl-1">
+              <button
+                onClick={() => setNewPrinciple("Rounded corners throughout for approachability and warmth")}
+                className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-[#FEE6EA]/5 rounded-lg transition-colors"
+              >
+                → Rounded corners for approachability
+              </button>
+              <button
+                onClick={() => setNewPrinciple("Asymmetric layouts that feel dynamic, not predictable grids")}
+                className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-[#FEE6EA]/5 rounded-lg transition-colors"
+              >
+                → Asymmetric, dynamic layouts
+              </button>
+              <button
+                onClick={() => setNewPrinciple("Every element must earn its place - ruthless simplicity")}
+                className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-[#FEE6EA]/5 rounded-lg transition-colors"
+              >
+                → Ruthless simplicity
+              </button>
+              <button
+                onClick={() => setNewPrinciple("Embrace negative space as a design element, not empty space")}
+                className="w-full text-left px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-[#FEE6EA]/5 rounded-lg transition-colors"
+              >
+                → Negative space as design element
+              </button>
+            </div>
+          </details>
         </div>
       )}
 

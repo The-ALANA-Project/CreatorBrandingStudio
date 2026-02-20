@@ -453,6 +453,8 @@ export default function Studio() {
         backgroundColor: '#FAFAF9',
         scale: 2,
         logging: false,
+        useCORS: true,
+        allowTaint: true,
       });
 
       // Remove the temp container
@@ -486,7 +488,7 @@ export default function Studio() {
       finalCtx.textBaseline = 'middle';
       
       const text = 'Brief created with ';
-      const boldText = 'creatorbranding.com';
+      const boldText = 'creator-branding.com';
       const text2 = ' built with 💜 by ';
       const boldText2 = '@stellaachenbach';
       
@@ -609,6 +611,8 @@ export default function Studio() {
         backgroundColor: '#FAFAF9',
         scale: 2,
         logging: false,
+        useCORS: true,
+        allowTaint: true,
       });
 
       // Remove the temp container
@@ -642,7 +646,7 @@ export default function Studio() {
       finalCtx.textBaseline = 'middle';
       
       const text = 'Brief created with ';
-      const boldText = 'creatorbranding.com';
+      const boldText = 'creator-branding.com';
       const text2 = ' built with 💜 by ';
       const boldText2 = '@stellaachenbach';
       
@@ -714,6 +718,7 @@ export default function Studio() {
           devMode={devMode}
           journeyData={journeyData}
           onUpdateJourneyData={updateJourneyData}
+          onDownloadProgress={handleDownloadProgress}
         />
 
         {/* SVG Filter for Liquid Glass Effect */}

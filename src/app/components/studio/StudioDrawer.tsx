@@ -8,7 +8,6 @@ import { StepMotivations } from './steps/StepMotivations';
 import { StepVisualLab } from './steps/StepVisualLab';
 import { StepTypography } from './steps/StepTypography';
 import { StepColorMapping } from './steps/StepColorMapping';
-import { StepDesignElements } from './steps/StepDesignElements';
 import { StepInspiration } from './steps/StepInspiration';
 import { StepNextSteps } from './steps/StepNextSteps';
 import type { CanvasItem, JourneyData } from '@/app/pages/Studio';
@@ -28,6 +27,7 @@ interface StudioDrawerProps {
   devMode: boolean;
   journeyData: JourneyData;
   onUpdateJourneyData: (stepKey: string, data: any) => void;
+  onDownloadProgress?: () => void;
 }
 
 const steps = [
@@ -39,8 +39,7 @@ const steps = [
   { number: 6, title: 'Typography', component: StepTypography },
   { number: 7, title: 'Color Lab', component: StepColorMapping },
   { number: 8, title: 'Inspiration', component: StepInspiration },
-  { number: 9, title: 'Design Principles', component: StepDesignElements },
-  { number: 10, title: 'Next Steps', component: StepNextSteps },
+  { number: 9, title: 'Next Steps', component: StepNextSteps },
 ];
 
 const MIN_HEIGHT = 200; // Minimum drawer height in pixels
@@ -61,6 +60,7 @@ export function StudioDrawer({
   devMode,
   journeyData,
   onUpdateJourneyData,
+  onDownloadProgress,
 }: StudioDrawerProps) {
   const CurrentStepComponent = steps[currentStep - 1]?.component;
   const [drawerHeight, setDrawerHeight] = useState(DEFAULT_HEIGHT_VH);
@@ -276,6 +276,7 @@ export function StudioDrawer({
                         onNext={onStepComplete}
                         journeyData={journeyData}
                         onUpdateJourneyData={onUpdateJourneyData}
+                        onDownloadProgress={onDownloadProgress}
                       />
                     )}
                   </motion.div>

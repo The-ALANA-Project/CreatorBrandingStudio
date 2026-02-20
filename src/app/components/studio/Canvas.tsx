@@ -36,6 +36,14 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
   const clearMenuRef = useRef<HTMLDivElement>(null);
   const linkModalRef = useRef<HTMLDivElement>(null);
 
+  // Detect if user is on Mac/iOS for trackpad support
+  const isMac = useRef(
+    typeof navigator !== 'undefined' && 
+    (navigator.platform.toUpperCase().indexOf('MAC') >= 0 || 
+     navigator.platform.toUpperCase().indexOf('IPHONE') >= 0 ||
+     navigator.platform.toUpperCase().indexOf('IPAD') >= 0)
+  ).current;
+
   // Snap to grid helper function (24px grid)
   const snapToGrid = (x: number, y: number) => {
     const gridSize = 12; // Tighter grid for easier positioning
@@ -46,16 +54,25 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
     };
   };
 
-  // Handle mouse wheel for zooming
+  // Handle mouse wheel for zooming and panning (Mac trackpad support)
   const handleWheel = useCallback((e: React.WheelEvent) => {
+    // Zoom with ctrl/cmd key (all platforms)
     if (e.ctrlKey || e.metaKey) {
       e.preventDefault();
       const delta = -e.deltaY;
       const zoomSensitivity = 0.001;
       const newScale = Math.min(Math.max(0.1, scale + delta * zoomSensitivity), 3);
       setScale(newScale);
+    } 
+    // Pan with trackpad on Mac (natural two-finger scroll)
+    else if (isMac) {
+      e.preventDefault();
+      setPan(prev => ({
+        x: prev.x - e.deltaX,
+        y: prev.y - e.deltaY,
+      }));
     }
-  }, [scale]);
+  }, [scale, isMac]);
 
   // Handle mouse down for panning
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
@@ -400,7 +417,7 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
   }, [onAddItem]);
 
   const [{ isOver }, drop] = useDrop(() => ({
-    accept: ['CARD', 'IMAGE', 'TEXT', 'COLOR', 'FONT_PAIRING', 'TYPOGRAPHY'],
+    accept: ['CARD', 'IMAGE', 'TEXT', 'COLOR', 'FONT_PAIRING', 'TYPOGRAPHY', 'LINK'],
     drop: (item: any, monitor) => {
       const delta = monitor.getDifferenceFromInitialOffset();
       const canvasRect = canvasRef.current?.getBoundingClientRect();
@@ -666,7 +683,7 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
       data-canvas="true"
       className="flex-1 relative overflow-hidden"
       style={{
-        cursor: isPanning ? 'grabbing' : 'grab',
+        cursor: isMac ? 'default' : (isPanning ? 'grabbing' : 'grab'),
         backgroundColor: '#FAFAF9',
       }}
       onWheel={handleWheel}
@@ -695,12 +712,12 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
       {/* Empty state */}
       {items.length === 0 && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10">
-          <div className="text-center max-w-md px-4">
-            <h3 className="text-lg sm:text-xl font-medium mb-2 text-foreground/80">
+          <div className="backdrop-blur-3xl border-2 border-white/40 rounded-3xl shadow-[0_16px_64px_0_rgba(0,0,0,0.08)] px-12 py-10 text-center max-w-2xl bg-[#fee6ea]">
+            <h3 className="font-bold mb-4 text-foreground text-[25px]">
               Your Brand Canvas Awaits
             </h3>
-            <p className="text-sm text-muted-foreground text-center">
-              Start your journey below to collect cards and build your personal brand system
+            <p className="text-foreground/70 text-[18px] text-[#131718]">
+              Start your journey by clicking on the bar below to collect cards and build your personal brand.
             </p>
           </div>
         </div>
