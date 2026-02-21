@@ -19,27 +19,32 @@ export default function Resources() {
 
   const tools = [
     {
-      name: 'Brand Voice Guide Template',
-      description: 'A comprehensive template for documenting your brand voice and tone.',
-      link: '#',
+      name: 'Guidelines Online',
+      description: 'A free, AI-powered tool that automatically generates one-page brand guidelines by analyzing uploaded logo files.',
+      link: 'https://www.guidelines.online/',
     },
     {
-      name: 'Visual Moodboard Kit',
-      description: 'Curated collection of visual references to refine your aesthetic.',
-      link: '#',
+      name: 'gingersauce',
+      description: 'A brand book generator designed by creatives to help teams build professional brand guidelines quickly.',
+      link: 'https://gingersauce.co/',
     },
     {
-      name: 'Content Calendar Framework',
-      description: 'Strategic planning tool aligned with your brand pillars.',
-      link: '#',
+      name: 'Standards.',
+      description: 'A premium platform for creating dynamic, website-like brand guidelines without coding. Founded by designers from Standards Manual.',
+      link: 'https://standards.site/',
     },
   ];
 
   const supportingTools = [
     {
       name: 'Creator Pricing Calculator',
-      description: 'Calculate your rates and pricing strategy as a creator.',
+      description: 'Calculate your minimum and recommended rates based on your floor and develop your own pricing strategy for you and your brand.',
       link: 'https://creatorpricing.com',
+    },
+    {
+      name: 'Stella\'s Blog',
+      description: 'Insights on creator economy, personal development and enhancing your skillset/knowledge as a creator in today\'s world.',
+      link: 'https://paragraph.xyz/@stellaachenbach',
     },
   ];
 
@@ -88,7 +93,7 @@ export default function Resources() {
                 
                 {/* Expert Info */}
                 <div className="mb-4">
-                  <h4 className="text-lg font-semibold text-[#131718] mb-1 cursor-pointer hover:text-[#131718]/70 hover:scale-105 transition-all duration-200">
+                  <h4 className="text-lg font-semibold text-[#131718] mb-1 cursor-pointer relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#131718] after:transition-all after:duration-300 hover:after:w-full">
                     {expert.name}
                   </h4>
                   <p className="text-sm text-[#131718]/70 font-medium">
@@ -102,7 +107,7 @@ export default function Resources() {
                 
                 <a
                   href={expert.portfolio}
-                  className="inline-flex items-center gap-2 text-sm text-[#131718] hover:text-[#131718]/70 transition-colors"
+                  className="inline-flex items-center gap-2 text-sm text-[#131718] hover:text-[#131718]/70 transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#131718] after:transition-all after:duration-300 hover:after:w-full"
                 >
                   View Portfolio
                   <ExternalLink className="w-3 h-3" />
@@ -126,9 +131,16 @@ export default function Resources() {
                 key={index}
                 className="p-[0px]"
               >
-                <h4 className="text-lg font-semibold text-[#131718] mb-3 cursor-pointer hover:text-[#131718]/70 hover:scale-105 transition-all duration-200">
-                  {tool.name}
-                </h4>
+                <a 
+                  href={tool.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block"
+                >
+                  <h4 className="text-lg font-semibold text-[#131718] mb-3 cursor-pointer relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#131718] after:transition-all after:duration-300 hover:after:w-full">
+                    {tool.name}
+                  </h4>
+                </a>
                 <p className="text-sm text-[#131718]/60 mb-6">
                   {tool.description}
                 </p>
@@ -141,7 +153,7 @@ export default function Resources() {
         {/* Supporting Tools Section */}
         <section className="mb-16">
           <h3 className="text-xl sm:text-2xl font-semibold text-[#131718] mb-2">
-            Supporting Tools
+            Additional Help
           </h3>
           <p className="mb-6 text-[#131718] text-[16px]">
             Additional resources to enhance the making of your empire.
@@ -152,9 +164,16 @@ export default function Resources() {
                 key={index}
                 className="p-[0px]"
               >
-                <h4 className="text-lg font-semibold text-[#131718] mb-3 cursor-pointer hover:text-[#131718]/70 hover:scale-105 transition-all duration-200">
-                  {tool.name}
-                </h4>
+                <a 
+                  href={tool.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block"
+                >
+                  <h4 className="text-lg font-semibold text-[#131718] mb-3 cursor-pointer relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#131718] after:transition-all after:duration-300 hover:after:w-full">
+                    {tool.name}
+                  </h4>
+                </a>
                 <p className="text-sm text-[#131718]/60 mb-6">
                   {tool.description}
                 </p>
@@ -174,7 +193,7 @@ export default function Resources() {
               href="https://www.linkedin.com/in/stella-achenbach/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#131718] hover:text-[#131718]/70 transition-colors"
+              className="text-[#131718] hover:text-[#131718]/70 transition-colors relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[1px] after:bg-[#131718] after:transition-all after:duration-300 hover:after:w-full"
             >
               @stellaachenbach
             </a>
