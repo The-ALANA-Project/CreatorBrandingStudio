@@ -716,7 +716,7 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
             <h3 className="font-bold mb-4 text-foreground text-[25px]">
               Your Brand Canvas Awaits
             </h3>
-            <p className="text-foreground/70 text-[18px] text-[#131718]">
+            <p className="text-foreground/70 text-[#131718] text-[16px]">
               Start your journey by clicking on the bar below to collect cards and build your personal brand.
             </p>
           </div>
