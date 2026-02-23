@@ -754,7 +754,7 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
       </div>
 
       {/* Canvas Controls */}
-      <div className="absolute top-4 left-6 z-20 flex flex-col gap-3" data-zoom-control="true">
+      <div className="absolute top-5 left-6 z-20 flex flex-col gap-3" data-zoom-control="true">
         {/* Home Button */}
         <div className="relative">
           <div className="relative flex overflow-hidden rounded-full shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] transition-all duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,2.2)] hover:shadow-[0_8px_8px_rgba(0,0,0,0.25),0_0_24px_rgba(0,0,0,0.15)]">
@@ -1268,7 +1268,7 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
       </div>
 
       {/* Right Toolbar - Content Creation */}
-      <div className="absolute top-4 right-6 z-20 flex flex-col gap-3" data-zoom-control="true">
+      <div className="absolute top-5 right-6 z-20 flex flex-col gap-3" data-zoom-control="true">
         {/* Add Title Button */}
         <div className="relative">
           <div className="relative flex overflow-hidden rounded-full shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] transition-all duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,2.2)] hover:shadow-[0_8px_8px_rgba(0,0,0,0.25),0_0_24px_rgba(0,0,0,0.15)]">
