@@ -1,8 +1,9 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
+import { useNavigate } from 'react-router';
 import { DraggableCanvasItem } from './DraggableCanvasItem';
 import type { CanvasItem } from '@/app/pages/Studio';
-import { Home, ZoomIn, ZoomOut, Download, Upload, FileJson, FileImage, FileText, Trash2, Type, StickyNote, Palette, Link, ImagePlus } from 'lucide-react';
+import { Home, ZoomIn, ZoomOut, Download, Upload, FileJson, FileImage, FileText, Trash2, Type, StickyNote, Palette, Link, ImagePlus, BookOpen, Play } from 'lucide-react';
 
 interface CanvasProps {
   items: CanvasItem[];
@@ -20,6 +21,7 @@ interface CanvasProps {
 }
 
 export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem, onAddItem, zoom = 1, onDownloadProgress, onUploadProgress, onExportPNG, onExportPDF, onClearCanvas, onClearAll }: CanvasProps) {
+  const navigate = useNavigate();
   const canvasRef = useRef<HTMLDivElement>(null);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [scale, setScale] = useState(1);
@@ -415,6 +417,12 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
     };
     input.click();
   }, [onAddItem]);
+
+  // Handle Replay Intro
+  const handleReplayIntro = useCallback(() => {
+    sessionStorage.removeItem('intro-seen');
+    navigate('/');
+  }, [navigate]);
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ['CARD', 'IMAGE', 'TEXT', 'COLOR', 'FONT_PAIRING', 'TYPOGRAPHY', 'LINK'],
@@ -1177,6 +1185,86 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
             )}
           </div>
         )}
+
+        {/* Resources Button */}
+        <div className="relative">
+          <div className="relative flex overflow-hidden rounded-full shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] transition-all duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,2.2)] hover:shadow-[0_8px_8px_rgba(0,0,0,0.25),0_0_24px_rgba(0,0,0,0.15)]">
+            {/* Glass Effect Layer */}
+            <div 
+              className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
+              style={{
+                backdropFilter: 'blur(3px)',
+                filter: 'url(#glass-distortion)',
+                isolation: 'isolate',
+              }}
+            />
+            
+            {/* Tint Layer */}
+            <div 
+              className="absolute inset-0 z-[1] pointer-events-none"
+              style={{
+                background: 'rgba(255, 255, 255, 0.15)',
+              }}
+            />
+            
+            {/* Shine Layer */}
+            <div 
+              className="absolute inset-0 z-[2] overflow-hidden pointer-events-none"
+              style={{
+                boxShadow: 'inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5), inset -1px -1px 1px 1px rgba(255, 255, 255, 0.5)',
+              }}
+            />
+            
+            {/* Content Layer */}
+            <button
+              className="relative z-[3] w-12 h-12 flex items-center justify-center text-foreground transition-all duration-200 hover:scale-95"
+              onClick={() => navigate('/resources')}
+              title="Resources & Experts"
+            >
+              <BookOpen className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Replay Intro Button */}
+        <div className="relative">
+          <div className="relative flex overflow-hidden rounded-full shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] transition-all duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,2.2)] hover:shadow-[0_8px_8px_rgba(0,0,0,0.25),0_0_24px_rgba(0,0,0,0.15)]">
+            {/* Glass Effect Layer */}
+            <div 
+              className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
+              style={{
+                backdropFilter: 'blur(3px)',
+                filter: 'url(#glass-distortion)',
+                isolation: 'isolate',
+              }}
+            />
+            
+            {/* Tint Layer */}
+            <div 
+              className="absolute inset-0 z-[1] pointer-events-none"
+              style={{
+                background: 'rgba(255, 255, 255, 0.15)',
+              }}
+            />
+            
+            {/* Shine Layer */}
+            <div 
+              className="absolute inset-0 z-[2] overflow-hidden pointer-events-none"
+              style={{
+                boxShadow: 'inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5), inset -1px -1px 1px 1px rgba(255, 255, 255, 0.5)',
+              }}
+            />
+            
+            {/* Content Layer */}
+            <button
+              className="relative z-[3] w-12 h-12 flex items-center justify-center text-foreground transition-all duration-200 hover:scale-95"
+              onClick={handleReplayIntro}
+              title="Replay Intro Animation"
+            >
+              <Play className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Right Toolbar - Content Creation */}

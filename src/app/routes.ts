@@ -9,6 +9,10 @@ export const router = createBrowserRouter([
     Component: Intro,
   },
   {
+    path: "/home",
+    Component: Intro,
+  },
+  {
     path: "/studio",
     Component: Studio,
   },

@@ -165,14 +165,14 @@ export function StudioDrawer({
               e.stopPropagation();
               onToggle();
             }}
-            className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+            className="group flex items-center gap-2 cursor-pointer transition-colors"
           >
             {isOpen ? (
-              <ChevronDown className="w-5 h-5 text-white/70" />
+              <ChevronDown className="w-5 h-5 text-white/70 group-hover:text-[#FEE6EA] transition-colors" />
             ) : (
-              <ChevronUp className="w-5 h-5 text-white/70" />
+              <ChevronUp className="w-5 h-5 text-white/70 group-hover:text-[#FEE6EA] transition-colors" />
             )}
-            <span className="text-sm text-white/90 font-medium">
+            <span className="text-sm text-white/90 font-medium group-hover:text-[#FEE6EA] transition-colors">
               {isOpen ? 'Minimize to Pause Journey' : 'Expand to Start/Continue Journey'}
             </span>
           </button>
@@ -196,26 +196,6 @@ export function StudioDrawer({
             }
             className="bg-[#FEE6EA] flex flex-col"
           >
-            {/* Dev Mode Button */}
-            <div className="px-4 py-2 sm:px-6 border-b border-[#131718] flex-shrink-0">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onToggleDevMode();
-                }}
-                className={`
-                  px-3 py-1.5 rounded-lg text-xs font-medium transition-all
-                  ${
-                    devMode
-                      ? 'bg-green-500/20 text-green-700 border border-green-500/30'
-                      : 'bg-muted/30 text-muted-foreground border border-border/50 hover:bg-muted/50'
-                  }
-                `}
-              >
-                {devMode ? 'DEV MODE: ON (All Unlocked)' : 'DEV MODE: OFF'}
-              </button>
-            </div>
-
             {/* Step Tabs */}
             <div className="border-b border-[#131718] overflow-x-auto flex-shrink-0">
               <div className="flex gap-1 px-4 py-2 sm:px-6 min-w-max">

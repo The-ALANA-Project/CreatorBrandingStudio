@@ -4,6 +4,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Canvas } from '@/app/components/studio/Canvas';
 import { StudioDrawer } from '@/app/components/studio/StudioDrawer';
 import { StudioHeader } from '@/app/components/studio/StudioHeader';
+import { SEO } from '@/app/components/SEO';
 import html2canvas from 'html2canvas-pro';
 import { jsPDF } from 'jspdf';
 import gsap from 'gsap';
@@ -686,6 +687,11 @@ export default function Studio() {
 
   return (
     <DndProvider backend={HTML5Backend}>
+      <SEO 
+        title="Studio - Creator Branding Studio"
+        description="Build your personal brand visually on an interactive canvas. Drag and drop your branding elements to create a comprehensive brand brief."
+        keywords="brand studio, visual branding, brand canvas, personal brand builder, interactive branding tool, brand brief creator"
+      />
       <div className="min-h-screen bg-background text-foreground flex flex-col overflow-hidden" ref={containerRef}>
         <StudioHeader />
         

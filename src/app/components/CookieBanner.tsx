@@ -71,7 +71,7 @@ export function CookieBanner() {
       <div 
         className="relative backdrop-blur-xl border-t shadow-2xl"
         style={{
-          background: 'rgba(19, 23, 24, 0.9)',
+          background: '#131718',
           borderTop: '1px solid #FEE6EA',
           boxShadow: '0 -8px 32px rgba(0, 0, 0, 0.4), 0 0 60px rgba(254, 230, 234, 0.08)'
         }}

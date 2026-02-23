@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import gsap from 'gsap';
+import { SEO } from '@/app/components/SEO';
 
 export default function Intro() {
   const navigate = useNavigate();
@@ -147,104 +148,111 @@ export default function Intro() {
   };
 
   return (
-    <div 
-      ref={containerRef} 
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{ 
-        backgroundColor: '#131718',
-        visibility: 'hidden'
-      }}
-    >
-      {/* Rolling Text Animation */}
+    <>
+      <SEO 
+        title="Creator Branding Studio - Turn Your Vibes into a Sharp Personal Brand"
+        description="Turn your vibes into a sharp personal brand in 15 minutes. Interactive journey to discover your brand archetype, core values, and brand DNA."
+        keywords="personal branding, creator branding, brand archetype, brand identity, creative branding, personal brand quiz, brand discovery, content creator branding"
+      />
       <div 
-        ref={tubeRef} 
-        className="relative w-full flex flex-col items-center justify-center"
-        style={{ height: 'clamp(300px, 30vw, 500px)' }}
+        ref={containerRef} 
+        className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
+        style={{ 
+          backgroundColor: '#131718',
+          visibility: 'hidden'
+        }}
       >
-        <h1 
-          ref={line1Ref}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 whitespace-nowrap text-center"
-          style={{
-            lineHeight: 1.2,
-            letterSpacing: '-0.4vw',
-            fontSize: 'clamp(80px, 14vw, 200px)',
-            color: '#FEE6EA',
-            backfaceVisibility: 'hidden',
-            willChange: 'transform'
-          }}
+        {/* Rolling Text Animation */}
+        <div 
+          ref={tubeRef} 
+          className="relative w-full flex flex-col items-center justify-center"
+          style={{ height: 'clamp(300px, 30vw, 500px)' }}
         >
-          Creator
-        </h1>
-        <h1 
-          ref={line2Ref}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 whitespace-nowrap text-center"
-          style={{
-            lineHeight: 1.2,
-            letterSpacing: '-0.4vw',
-            fontSize: 'clamp(80px, 14vw, 200px)',
-            color: '#FEE6EA',
-            backfaceVisibility: 'hidden',
-            willChange: 'transform'
-          }}
-        >
-          Branding
-        </h1>
-        <h1 
-          ref={line3Ref}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 whitespace-nowrap text-center"
-          style={{
-            lineHeight: 1.2,
-            letterSpacing: '-0.4vw',
-            fontSize: 'clamp(80px, 14vw, 200px)',
-            color: '#FEE6EA',
-            backfaceVisibility: 'hidden',
-            willChange: 'transform'
-          }}
-        >
-          Studio
-        </h1>
-      </div>
+          <h1 
+            ref={line1Ref}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 whitespace-nowrap text-center"
+            style={{
+              lineHeight: 1.2,
+              letterSpacing: '-0.4vw',
+              fontSize: 'clamp(80px, 14vw, 200px)',
+              color: '#FEE6EA',
+              backfaceVisibility: 'hidden',
+              willChange: 'transform'
+            }}
+          >
+            Creator
+          </h1>
+          <h1 
+            ref={line2Ref}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 whitespace-nowrap text-center"
+            style={{
+              lineHeight: 1.2,
+              letterSpacing: '-0.4vw',
+              fontSize: 'clamp(80px, 14vw, 200px)',
+              color: '#FEE6EA',
+              backfaceVisibility: 'hidden',
+              willChange: 'transform'
+            }}
+          >
+            Branding
+          </h1>
+          <h1 
+            ref={line3Ref}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 m-0 whitespace-nowrap text-center"
+            style={{
+              lineHeight: 1.2,
+              letterSpacing: '-0.4vw',
+              fontSize: 'clamp(80px, 14vw, 200px)',
+              color: '#FEE6EA',
+              backfaceVisibility: 'hidden',
+              willChange: 'transform'
+            }}
+          >
+            Studio
+          </h1>
+        </div>
 
-      {/* CTA Button */}
-      <div 
-        ref={ctaRef} 
-        className="mt-16 mb-32 opacity-0 flex flex-col items-center"
-        style={{ transform: 'translateY(20px)' }}
-      >
-        <button
-          onClick={handleBeginJourney}
-          className="relative overflow-hidden rounded-full px-12 py-4 text-lg font-semibold transition-all hover:scale-105 active:scale-95"
-          style={{
-            background: '#131718',
-            color: '#FEE6EA',
-            border: '1px solid #FEE6EA',
-            boxShadow: '0 0 30px rgba(254, 230, 234, 0.3), 0 0 60px rgba(254, 230, 234, 0.15)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(254, 230, 234, 0.9)';
-            e.currentTarget.style.color = '#131718';
-            e.currentTarget.style.boxShadow = 'none';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#131718';
-            e.currentTarget.style.color = '#FEE6EA';
-            e.currentTarget.style.boxShadow = '0 0 30px rgba(254, 230, 234, 0.3), 0 0 60px rgba(254, 230, 234, 0.15)';
-          }}
+        {/* CTA Button */}
+        <div 
+          ref={ctaRef} 
+          className="mt-16 mb-32 opacity-0 flex flex-col items-center"
+          style={{ transform: 'translateY(20px)' }}
         >
-          Begin Your Journey
-        </button>
-        
-        {/* Desktop Optimization Notice */}
-        <p 
-          className="text-center mt-6 text-sm px-6"
-          style={{ 
-            color: 'rgba(254, 230, 234, 0.6)',
-            maxWidth: '400px'
-          }}
-        >
-          Optimized for desktop experience. Mobile works, but may feel less convenient.
-        </p>
+          <button
+            onClick={handleBeginJourney}
+            className="relative overflow-hidden rounded-full px-12 py-4 text-lg font-semibold transition-all hover:scale-105 active:scale-95"
+            style={{
+              background: '#131718',
+              color: '#FEE6EA',
+              border: '1px solid #FEE6EA',
+              boxShadow: '0 0 30px rgba(254, 230, 234, 0.3), 0 0 60px rgba(254, 230, 234, 0.15)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(254, 230, 234, 0.9)';
+              e.currentTarget.style.color = '#131718';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#131718';
+              e.currentTarget.style.color = '#FEE6EA';
+              e.currentTarget.style.boxShadow = '0 0 30px rgba(254, 230, 234, 0.3), 0 0 60px rgba(254, 230, 234, 0.15)';
+            }}
+          >
+            Begin Your Journey
+          </button>
+          
+          {/* Desktop Optimization Notice */}
+          <p 
+            className="text-center mt-6 text-sm px-6"
+            style={{ 
+              color: 'rgba(254, 230, 234, 0.6)',
+              maxWidth: '400px'
+            }}
+          >
+            Optimized for desktop experience. Mobile works, but may feel less convenient.
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
