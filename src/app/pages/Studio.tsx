@@ -28,6 +28,7 @@ export default function Studio() {
   const [zoom, setZoom] = useState(1);
   const [devMode, setDevMode] = useState(false);
   const [journeyData, setJourneyData] = useState<JourneyData>({});
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Smooth fade-in transition when coming from intro
@@ -271,11 +272,31 @@ export default function Studio() {
   };
 
   const updateItemPosition = (id: string, position: { x: number; y: number }) => {
-    setCanvasItems(items =>
-      items.map(item =>
-        item.id === id ? { ...item, position } : item
-      )
-    );
+    // If the item being dragged is in the selection, move all selected items
+    if (selectedItems.includes(id) && selectedItems.length > 1) {
+      const draggedItem = canvasItems.find(item => item.id === id);
+      if (!draggedItem) return;
+      
+      // Calculate offset from original position
+      const offsetX = position.x - draggedItem.position.x;
+      const offsetY = position.y - draggedItem.position.y;
+      
+      // Move all selected items by the same offset
+      setCanvasItems(items =>
+        items.map(item =>
+          selectedItems.includes(item.id)
+            ? { ...item, position: { x: item.position.x + offsetX, y: item.position.y + offsetY } }
+            : item
+        )
+      );
+    } else {
+      // Single item drag
+      setCanvasItems(items =>
+        items.map(item =>
+          item.id === id ? { ...item, position } : item
+        )
+      );
+    }
   };
 
   const updateItemContent = (id: string, content: any) => {
@@ -288,6 +309,22 @@ export default function Studio() {
 
   const removeItemFromCanvas = (id: string) => {
     setCanvasItems(items => items.filter(item => item.id !== id));
+  };
+
+  const duplicateItem = (id: string) => {
+    const item = canvasItems.find(item => item.id === id);
+    if (!item) return;
+
+    // Create a duplicate with a new ID and offset position
+    const newItem: CanvasItem = {
+      ...item,
+      id: crypto.randomUUID(),
+      position: {
+        x: item.position.x + 30,
+        y: item.position.y + 30,
+      },
+    };
+    setCanvasItems(items => [...items, newItem]);
   };
 
   // Clear canvas only
@@ -685,6 +722,26 @@ export default function Studio() {
     }
   };
 
+  const handleItemSelect = (id: string, isMultiSelect: boolean) => {
+    if (isMultiSelect) {
+      // Toggle selection with Cmd/Ctrl
+      setSelectedItems(prev =>
+        prev.includes(id) ? prev.filter(itemId => itemId !== id) : [...prev, id]
+      );
+    } else {
+      // Single select (deselect others)
+      setSelectedItems([id]);
+    }
+  };
+
+  const handleDeselectAll = () => {
+    setSelectedItems([]);
+  };
+
+  const handleSelectAll = () => {
+    setSelectedItems(canvasItems.map(item => item.id));
+  };
+
   return (
     <DndProvider backend={HTML5Backend}>
       <SEO 
@@ -697,10 +754,15 @@ export default function Studio() {
         
         <Canvas
           items={canvasItems}
+          selectedItems={selectedItems}
           onUpdatePosition={updateItemPosition}
           onUpdateContent={updateItemContent}
           onRemoveItem={removeItemFromCanvas}
+          onDuplicateItem={duplicateItem}
           onAddItem={addItemToCanvas}
+          onItemSelect={handleItemSelect}
+          onDeselectAll={handleDeselectAll}
+          onSelectAll={handleSelectAll}
           zoom={zoom}
           onDownloadProgress={handleDownloadProgress}
           onUploadProgress={handleUploadProgress}

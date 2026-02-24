@@ -7,10 +7,15 @@ import { Home, ZoomIn, ZoomOut, Download, Upload, FileJson, FileImage, FileText,
 
 interface CanvasProps {
   items: CanvasItem[];
+  selectedItems?: string[];
   onUpdatePosition: (id: string, position: { x: number; y: number }) => void;
   onUpdateContent: (id: string, content: any) => void;
   onRemoveItem: (id: string) => void;
+  onDuplicateItem?: (id: string) => void;
   onAddItem?: (item: Omit<CanvasItem, 'id' | 'position'>, position: { x: number; y: number }) => void;
+  onItemSelect?: (id: string, isMultiSelect: boolean) => void;
+  onDeselectAll?: () => void;
+  onSelectAll?: () => void;
   zoom?: number;
   onDownloadProgress?: () => void;
   onUploadProgress?: () => void;
@@ -20,7 +25,7 @@ interface CanvasProps {
   onClearAll?: () => void;
 }
 
-export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem, onAddItem, zoom = 1, onDownloadProgress, onUploadProgress, onExportPNG, onExportPDF, onClearCanvas, onClearAll }: CanvasProps) {
+export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateContent, onRemoveItem, onDuplicateItem, onAddItem, onItemSelect, onDeselectAll, onSelectAll, zoom = 1, onDownloadProgress, onUploadProgress, onExportPNG, onExportPDF, onClearCanvas, onClearAll }: CanvasProps) {
   const navigate = useNavigate();
   const canvasRef = useRef<HTMLDivElement>(null);
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -83,11 +88,15 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
     if (target.hasAttribute('data-canvas') || target.closest('[data-canvas]')) {
       // Check if we're not clicking on a canvas item
       if (!target.closest('[data-canvas-item]')) {
+        // Deselect all items when clicking on canvas background
+        if (onDeselectAll) {
+          onDeselectAll();
+        }
         setIsPanning(true);
         setStartPan({ x: e.clientX - pan.x, y: e.clientY - pan.y });
       }
     }
-  }, [pan]);
+  }, [pan, onDeselectAll]);
 
   // Handle mouse move for panning
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
@@ -682,6 +691,26 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
     };
   }, []);
 
+  // Keyboard shortcuts for multi-select
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Cmd/Ctrl + A to select all
+      if ((e.metaKey || e.ctrlKey) && e.key === 'a' && onSelectAll) {
+        e.preventDefault();
+        onSelectAll();
+      }
+      // Escape to deselect all
+      if (e.key === 'Escape' && onDeselectAll) {
+        onDeselectAll();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onSelectAll, onDeselectAll]);
+
   return (
     <div
       ref={(node) => {
@@ -745,9 +774,12 @@ export function Canvas({ items, onUpdatePosition, onUpdateContent, onRemoveItem,
             <DraggableCanvasItem
               key={item.id}
               item={item}
+              isSelected={selectedItems.includes(item.id)}
               onUpdatePosition={onUpdatePosition}
               onUpdateContent={onUpdateContent}
               onRemove={onRemoveItem}
+              onDuplicate={onDuplicateItem}
+              onSelect={onItemSelect}
             />
           ))}
         </div>

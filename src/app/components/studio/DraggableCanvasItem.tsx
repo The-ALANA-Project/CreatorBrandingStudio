@@ -1,23 +1,29 @@
 import { useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDrag } from 'react-dnd';
-import { X, Pipette, Pencil, ExternalLink } from 'lucide-react';
+import { X, Pipette, Pencil, ExternalLink, Copy } from 'lucide-react';
 import { Button } from '@/app/components/ui/button';
 import { motion, AnimatePresence } from 'motion/react';
 import type { CanvasItem } from '@/app/pages/Studio';
 
 interface DraggableCanvasItemProps {
   item: CanvasItem;
+  isSelected?: boolean;
   onUpdatePosition: (id: string, position: { x: number; y: number }) => void;
   onUpdateContent?: (id: string, content: any) => void;
   onRemove: (id: string) => void;
+  onDuplicate?: (id: string) => void;
+  onSelect?: (id: string, isMultiSelect: boolean) => void;
 }
 
 export function DraggableCanvasItem({
   item,
+  isSelected = false,
   onUpdatePosition,
   onUpdateContent,
   onRemove,
+  onDuplicate,
+  onSelect,
 }: DraggableCanvasItemProps) {
   const itemRef = useRef<HTMLDivElement>(null);
 
@@ -192,6 +198,14 @@ export function DraggableCanvasItem({
     setEditColor(rgbToHex(r, g, b));
   };
 
+  const handleItemClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onSelect) {
+      const isMultiSelect = e.metaKey || e.ctrlKey;
+      onSelect(item.id, isMultiSelect);
+    }
+  };
+
   return (
     <div
       ref={itemRef}
@@ -203,6 +217,7 @@ export function DraggableCanvasItem({
         top: item.position.y,
         opacity: isDragging ? 0.3 : 1,
       }}
+      onClick={handleItemClick}
     >
       {/* Grid snap indicator - shows during drag */}
       {isDragging && (
@@ -218,18 +233,32 @@ export function DraggableCanvasItem({
         relative rounded-lg shadow-[0_8px_32px_0_rgba(0,0,0,0.1)] p-3 transition-all
         ${item.type === 'typography' ? 'w-[350px]' : 'w-[240px]'}
         ${item.type === 'card' && item.content.variant === 'supporting-archetype'
-          ? 'bg-muted outline outline-1 outline-muted-foreground/30 outline-dashed'
-          : 'bg-white outline outline-1 outline-[#131718]'
+          ? `bg-muted outline-dashed outline-muted-foreground/30 ${isSelected ? 'outline-2' : 'outline-1'}`
+          : `bg-white outline outline-[#131718] ${isSelected ? 'outline-2' : 'outline-1'}`
         }
       `}>
+        {/* Duplicate button */}
+        {onDuplicate && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onDuplicate(item.id)}
+            className="absolute top-5 -right-2 h-6 w-6 p-0 rounded-full bg-[#131718] text-[#FEE6EA] hover:bg-[#FEE6EA] hover:text-[#131718] hover:border hover:border-[#131718] opacity-0 group-hover:opacity-100 transition-[background-color,color,opacity] z-50"
+            title="Duplicate"
+          >
+            <Copy className="h-3 w-3 scale-[0.8]" />
+          </Button>
+        )}
+
         {/* Remove button */}
         <Button
           variant="ghost"
           size="sm"
           onClick={() => onRemove(item.id)}
           className="absolute -top-2 -right-2 h-6 w-6 p-0 rounded-full bg-destructive/90 hover:bg-destructive text-destructive-foreground opacity-0 group-hover:opacity-100 transition-opacity z-50"
+          title="Remove"
         >
-          <X className="h-3 w-3" />
+          <X className="h-3 w-3 scale-90" />
         </Button>
 
         {/* Render content based on type */}
