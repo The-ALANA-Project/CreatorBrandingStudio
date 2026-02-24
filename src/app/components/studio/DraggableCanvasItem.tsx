@@ -41,6 +41,8 @@ export function DraggableCanvasItem({
 
   const [isEditingLabel, setIsEditingLabel] = useState(false);
   const [editLabel, setEditLabel] = useState(item.content.label || '');
+  const [editColor, setEditColor] = useState(item.content.color || '#000000');
+  const [colorFormat, setColorFormat] = useState<'hex' | 'rgb'>('hex');
   const [isEditingText, setIsEditingText] = useState(false);
   const [editText, setEditText] = useState(item.content.text || '');
   const [isEditingCardTitle, setIsEditingCardTitle] = useState(false);
@@ -51,11 +53,16 @@ export function DraggableCanvasItem({
   const handleLabelEdit = () => {
     setIsEditingLabel(true);
     setEditLabel(item.content.label || '');
+    setEditColor(item.content.color || '#000000');
   };
 
   const handleLabelSave = () => {
-    if (onUpdateContent && editLabel.trim()) {
-      onUpdateContent(item.id, { ...item.content, label: editLabel.trim() });
+    if (onUpdateContent) {
+      onUpdateContent(item.id, { 
+        ...item.content, 
+        label: editLabel.trim(),
+        color: editColor
+      });
     }
     setIsEditingLabel(false);
   };
@@ -155,6 +162,34 @@ export function DraggableCanvasItem({
     
     // Return true if dark (luminance < 0.5)
     return luminance < 0.5;
+  };
+
+  // Convert HEX to RGB
+  const hexToRgb = (hex: string): { r: number; g: number; b: number } => {
+    const cleanHex = hex.replace('#', '');
+    const r = parseInt(cleanHex.substr(0, 2), 16);
+    const g = parseInt(cleanHex.substr(2, 2), 16);
+    const b = parseInt(cleanHex.substr(4, 2), 16);
+    return { r, g, b };
+  };
+
+  // Convert RGB to HEX
+  const rgbToHex = (r: number, g: number, b: number): string => {
+    const toHex = (n: number) => {
+      const hex = Math.max(0, Math.min(255, Math.round(n))).toString(16);
+      return hex.length === 1 ? '0' + hex : hex;
+    };
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+  };
+
+  // Get RGB values from editColor
+  const getRgbValues = () => {
+    return hexToRgb(editColor);
+  };
+
+  // Update color from RGB input
+  const updateColorFromRgb = (r: number, g: number, b: number) => {
+    setEditColor(rgbToHex(r, g, b));
   };
 
   return (
@@ -564,7 +599,7 @@ export function DraggableCanvasItem({
         )}
       </div>
 
-      {/* Edit Color Label Modal - Only for renaming */}
+      {/* Edit Color Modal - Renaming and color editing */}
       {isEditingLabel && item.type === 'color' && createPortal(
         <AnimatePresence>
           <motion.div
@@ -582,7 +617,7 @@ export function DraggableCanvasItem({
               className="backdrop-blur-3xl bg-[#FEE6EA]/95 border-2 border-white/30 rounded-2xl shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-sm w-full"
             >
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold">Rename Color</h3>
+                <h3 className="text-lg font-semibold">Edit Color</h3>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -593,32 +628,42 @@ export function DraggableCanvasItem({
                 </Button>
               </div>
               
+              {/* Color Preview with Picker */}
               <div className="mb-4">
-                <div 
-                  className="w-full h-16 rounded-lg shadow-md mb-3"
-                  style={{ backgroundColor: item.content.color }}
+                <label className="block text-sm font-medium mb-2">Color Preview (Click to Change)</label>
+                <label className="cursor-pointer relative block">
+                  <div 
+                    className="w-full h-20 rounded-lg shadow-md mb-3"
+                    style={{ backgroundColor: editColor }}
+                  />
+                  <input
+                    type="color"
+                    value={editColor}
+                    onChange={(e) => setEditColor(e.target.value)}
+                    className="absolute bottom-5 left-1/2 -translate-x-1/2 opacity-0 w-0 h-0"
+                  />
+                </label>
+              </div>
+
+              {/* Label Input */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-2">Color Label</label>
+                <input
+                  value={editLabel}
+                  onChange={(e) => setEditLabel(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      handleLabelSave();
+                    } else if (e.key === 'Escape') {
+                      handleLabelCancel();
+                    }
+                  }}
+                  placeholder="Color Label (e.g., Primary, Accent 1)"
+                  className="w-full p-3 rounded-lg border-2 border-border bg-background/50 backdrop-blur-sm focus:outline-none focus:border-primary transition-colors"
                 />
-                <p className="text-xs text-muted-foreground text-center font-mono">
-                  {item.content.color.toUpperCase()}
-                </p>
               </div>
               
-              <input
-                value={editLabel}
-                onChange={(e) => setEditLabel(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && editLabel.trim()) {
-                    handleLabelSave();
-                  } else if (e.key === 'Escape') {
-                    handleLabelCancel();
-                  }
-                }}
-                placeholder="Color Label (e.g., Primary, Accent 1)"
-                className="w-full p-3 rounded-lg border-2 border-border bg-background/50 backdrop-blur-sm focus:outline-none focus:border-primary transition-colors"
-                autoFocus
-              />
-              
-              <div className="flex justify-end gap-2 mt-4">
+              <div className="flex justify-end gap-2">
                 <Button
                   variant="ghost"
                   onClick={handleLabelCancel}
@@ -628,7 +673,6 @@ export function DraggableCanvasItem({
                 </Button>
                 <Button
                   onClick={handleLabelSave}
-                  disabled={!editLabel.trim()}
                 >
                   Save
                 </Button>
