@@ -116,16 +116,6 @@ export function StepInspiration({ onAddItem, onNext, journeyData, onUpdateJourne
       inspirationFor: 'Brand Designers, Logo Designers, Identity Designers, Visual Artists and more',
     },
     {
-      id: 'branding-style-guides',
-      name: 'Branding Style Guides',
-      description: 'Real brand guidelines collection',
-      logoColor: '#6C5CE7',
-      bgColor: '#6C5CE7',
-      categories: [],
-      url: 'https://brandingstyleguides.com/',
-      inspirationFor: 'Brand Strategists, Design Directors, Marketing Teams, Design System Architects and more',
-    },
-    {
       id: 'awwwards',
       name: 'Awwwards',
       description: 'Award-winning web design',
@@ -194,6 +184,16 @@ export function StepInspiration({ onAddItem, onNext, journeyData, onUpdateJourne
       categories: [],
       url: 'https://www.rawpixel.com/',
       inspirationFor: 'Graphic Designers, Illustrators, Content Creators, Marketing Teams and more',
+    },
+    {
+      id: 'designspiration',
+      name: 'Designspiration',
+      description: 'Visual design inspiration',
+      logoColor: '#6C5CE7',
+      bgColor: '#6C5CE7',
+      categories: [],
+      url: 'https://www.designspiration.com/',
+      inspirationFor: 'Brand Strategists, Design Directors, Marketing Teams, Design System Architects and more',
     },
   ];
 

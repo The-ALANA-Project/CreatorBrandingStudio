@@ -20,6 +20,11 @@ export default function Resources() {
 
   const tools = [
     {
+      name: 'Branding Style Guides',
+      description: 'A curated collection of real brand guidelines from leading companies to inspire and inform your own brand standards.',
+      link: 'https://brandingstyleguides.com/',
+    },
+    {
       name: 'Guidelines Online',
       description: 'A free, AI-powered tool that automatically generates one-page brand guidelines by analyzing uploaded logo files.',
       link: 'https://www.guidelines.online/',
