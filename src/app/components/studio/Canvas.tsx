@@ -787,7 +787,7 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
 
       {/* Canvas Controls */}
       <div className="absolute top-5 left-6 z-20 flex flex-col gap-3" data-zoom-control="true">
-        {/* Home Button */}
+        {/* Resources Button */}
         <div className="relative">
           <div className="relative flex overflow-hidden rounded-full shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] transition-all duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,2.2)] hover:shadow-[0_8px_8px_rgba(0,0,0,0.25),0_0_24px_rgba(0,0,0,0.15)]">
             {/* Glass Effect Layer */}
@@ -819,10 +819,10 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
             {/* Content Layer */}
             <button
               className="relative z-[3] w-12 h-12 flex items-center justify-center text-foreground transition-all duration-200 hover:scale-95"
-              onClick={resetView}
-              title="Reset View"
+              onClick={() => navigate('/resources')}
+              title="Resources & Experts"
             >
-              <Home className="w-5 h-5" />
+              <BookOpen className="w-5 h-5" />
             </button>
           </div>
         </div>
@@ -1218,46 +1218,6 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
           </div>
         )}
 
-        {/* Resources Button */}
-        <div className="relative">
-          <div className="relative flex overflow-hidden rounded-full shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] transition-all duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,2.2)] hover:shadow-[0_8px_8px_rgba(0,0,0,0.25),0_0_24px_rgba(0,0,0,0.15)]">
-            {/* Glass Effect Layer */}
-            <div 
-              className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
-              style={{
-                backdropFilter: 'blur(3px)',
-                filter: 'url(#glass-distortion)',
-                isolation: 'isolate',
-              }}
-            />
-            
-            {/* Tint Layer */}
-            <div 
-              className="absolute inset-0 z-[1] pointer-events-none"
-              style={{
-                background: 'rgba(255, 255, 255, 0.15)',
-              }}
-            />
-            
-            {/* Shine Layer */}
-            <div 
-              className="absolute inset-0 z-[2] overflow-hidden pointer-events-none"
-              style={{
-                boxShadow: 'inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5), inset -1px -1px 1px 1px rgba(255, 255, 255, 0.5)',
-              }}
-            />
-            
-            {/* Content Layer */}
-            <button
-              className="relative z-[3] w-12 h-12 flex items-center justify-center text-foreground transition-all duration-200 hover:scale-95"
-              onClick={() => navigate('/resources')}
-              title="Resources & Experts"
-            >
-              <BookOpen className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-
         {/* Replay Intro Button */}
         <div className="relative">
           <div className="relative flex overflow-hidden rounded-full shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] transition-all duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,2.2)] hover:shadow-[0_8px_8px_rgba(0,0,0,0.25),0_0_24px_rgba(0,0,0,0.15)]">
@@ -1288,13 +1248,6 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
             />
             
             {/* Content Layer */}
-            <button
-              className="relative z-[3] w-12 h-12 flex items-center justify-center text-foreground transition-all duration-200 hover:scale-95"
-              onClick={handleReplayIntro}
-              title="Replay Intro Animation"
-            >
-              <Play className="w-5 h-5" />
-            </button>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { StudioHeader } from '@/app/components/studio/StudioHeader';
 import { useNavigate } from 'react-router';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { Home, ExternalLink } from 'lucide-react';
 import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
 import { SEO } from '@/app/components/SEO';
 
@@ -46,6 +46,11 @@ export default function Resources() {
       name: 'Creator Pricing Calculator',
       description: 'Calculate your minimum and recommended rates based on your floor and develop your own pricing strategy for you and your brand.',
       link: 'https://creatorpricing.com',
+    },
+    {
+      name: 'Creator Contract Builder',
+      description: 'Build professional contracts tailored for creators — protect your work, set clear terms, and get paid with confidence.',
+      link: 'https://creatorcontractbuilder.com/',
     },
     {
       name: 'Stella\'s Blog',
@@ -109,11 +114,11 @@ export default function Resources() {
               {/* Content Layer */}
               <button
                 className="relative z-[3] w-12 h-12 flex items-center justify-center text-foreground transition-all duration-200 hover:scale-95"
-                onClick={() => navigate('/studio')}
-                title="Back to Studio"
-                aria-label="Back to Studio"
+                onClick={() => navigate('/')}
+                title="Home"
+                aria-label="Home"
               >
-                <ArrowLeft className="w-5 h-5" />
+                <Home className="w-5 h-5" />
               </button>
             </div>
           </div>
