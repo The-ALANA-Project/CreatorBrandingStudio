@@ -200,6 +200,20 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
     }
   }, [onAddItem]);
 
+  // Add Gradient Card handler
+  const handleAddGradientCard = useCallback(() => {
+    if (onAddItem) {
+      onAddItem({
+        type: 'gradient',
+        content: {
+          color1: '#FEE6EA',
+          color2: '#131718',
+          label: 'Gradient',
+        },
+      }); // Let Studio.tsx handle positioning with getRightmostPosition()
+    }
+  }, [onAddItem]);
+
   // Add Link Card handler
   const handleAddLinkCard = useCallback(() => {
     setShowLinkModal(true);
@@ -434,7 +448,7 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
   }, [navigate]);
 
   const [{ isOver }, drop] = useDrop(() => ({
-    accept: ['CARD', 'IMAGE', 'TEXT', 'COLOR', 'FONT_PAIRING', 'TYPOGRAPHY', 'LINK'],
+    accept: ['CARD', 'IMAGE', 'TEXT', 'COLOR', 'GRADIENT', 'FONT_PAIRING', 'TYPOGRAPHY', 'LINK'],
     drop: (item: any, monitor) => {
       const delta = monitor.getDifferenceFromInitialOffset();
       const canvasRect = canvasRef.current?.getBoundingClientRect();
@@ -1370,6 +1384,54 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
               title="Add Color Card"
             >
               <Palette className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Add Gradient Card Button */}
+        <div className="relative">
+          <div className="relative flex overflow-hidden rounded-full shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] transition-all duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,2.2)] hover:shadow-[0_8px_8px_rgba(0,0,0,0.25),0_0_24px_rgba(0,0,0,0.15)]">
+            {/* Glass Effect Layer */}
+            <div 
+              className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
+              style={{
+                backdropFilter: 'blur(3px)',
+                filter: 'url(#glass-distortion)',
+                isolation: 'isolate',
+              }}
+            />
+            
+            {/* Tint Layer */}
+            <div 
+              className="absolute inset-0 z-[1] pointer-events-none"
+              style={{
+                background: 'rgba(255, 255, 255, 0.15)',
+              }}
+            />
+            
+            {/* Shine Layer */}
+            <div 
+              className="absolute inset-0 z-[2] overflow-hidden pointer-events-none"
+              style={{
+                boxShadow: 'inset 2px 2px 1px 0 rgba(255, 255, 255, 0.5), inset -1px -1px 1px 1px rgba(255, 255, 255, 0.5)',
+              }}
+            />
+            
+            {/* Content Layer */}
+            <button
+              className="relative z-[3] w-12 h-12 flex items-center justify-center text-foreground transition-all duration-200 hover:scale-95"
+              onClick={handleAddGradientCard}
+              title="Add Gradient Card"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="gradientIcon" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="currentColor" stopOpacity="0.15" />
+                    <stop offset="100%" stopColor="currentColor" stopOpacity="1" />
+                  </linearGradient>
+                </defs>
+                <rect x="3" y="3" width="18" height="18" rx="3" fill="url(#gradientIcon)" stroke="currentColor" strokeWidth="1.5" />
+              </svg>
             </button>
           </div>
         </div>

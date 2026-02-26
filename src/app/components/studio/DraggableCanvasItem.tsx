@@ -56,10 +56,42 @@ export function DraggableCanvasItem({
   const [isEditingCardDescription, setIsEditingCardDescription] = useState(false);
   const [editCardDescription, setEditCardDescription] = useState(item.content.description || '');
 
+  // Gradient editing state
+  const [isEditingGradient, setIsEditingGradient] = useState(false);
+  const [editGradientColor1, setEditGradientColor1] = useState(item.content.color1 || '#FEE6EA');
+  const [editGradientColor2, setEditGradientColor2] = useState(item.content.color2 || '#131718');
+  const [editGradientLabel, setEditGradientLabel] = useState(item.content.label || '');
+
   const handleLabelEdit = () => {
     setIsEditingLabel(true);
     setEditLabel(item.content.label || '');
     setEditColor(item.content.color || '#000000');
+  };
+
+  const handleGradientEdit = () => {
+    setIsEditingGradient(true);
+    setEditGradientColor1(item.content.color1 || '#FEE6EA');
+    setEditGradientColor2(item.content.color2 || '#131718');
+    setEditGradientLabel(item.content.label || '');
+  };
+
+  const handleGradientSave = () => {
+    if (onUpdateContent) {
+      onUpdateContent(item.id, {
+        ...item.content,
+        color1: editGradientColor1,
+        color2: editGradientColor2,
+        label: editGradientLabel.trim(),
+      });
+    }
+    setIsEditingGradient(false);
+  };
+
+  const handleGradientCancel = () => {
+    setEditGradientColor1(item.content.color1 || '#FEE6EA');
+    setEditGradientColor2(item.content.color2 || '#131718');
+    setEditGradientLabel(item.content.label || '');
+    setIsEditingGradient(false);
   };
 
   const handleLabelSave = () => {
@@ -144,6 +176,22 @@ export function DraggableCanvasItem({
         // Immediately update the color
         if (onUpdateContent) {
           onUpdateContent(item.id, { ...item.content, color: result.sRGBHex });
+        }
+      } catch (error) {
+        // User cancelled or error occurred
+      }
+    } else {
+      alert('Color picker is not supported in your browser. Please use Chrome, Edge, or another Chromium-based browser.');
+    }
+  };
+
+  const pickGradientColorFromScreen = async (which: 'color1' | 'color2') => {
+    if ('EyeDropper' in window) {
+      try {
+        const eyeDropper = new (window as any).EyeDropper();
+        const result = await eyeDropper.open();
+        if (onUpdateContent) {
+          onUpdateContent(item.id, { ...item.content, [which]: result.sRGBHex });
         }
       } catch (error) {
         // User cancelled or error occurred
@@ -623,10 +671,178 @@ export function DraggableCanvasItem({
           </div>
         )}
 
+        {item.type === 'gradient' && (
+          <div className="flex flex-col items-center gap-2">
+            <div className="relative w-full">
+              <div 
+                className="w-full h-24 rounded-lg shadow-md"
+                style={{ background: `linear-gradient(135deg, ${item.content.color1}, ${item.content.color2})` }}
+              />
+              {onUpdateContent && (
+                <>
+                  {/* Eyedropper for color 1 - positioned on the left */}
+                  <div className="absolute top-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button
+                      onClick={() => pickGradientColorFromScreen('color1')}
+                      className="p-1.5 rounded-md transition-colors hover:bg-black/10"
+                      title="Pick color 1 from screen"
+                    >
+                      <Pipette 
+                        className="h-4 w-4" 
+                        style={{ color: isColorDark(item.content.color1) ? '#FEE6EA' : '#131718' }} 
+                      />
+                    </button>
+                  </div>
+                  {/* Eyedropper for color 2 + edit button - positioned on the right */}
+                  <div className="absolute top-2 right-2 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button
+                      onClick={() => pickGradientColorFromScreen('color2')}
+                      className="p-1.5 rounded-md transition-colors hover:bg-black/10"
+                      title="Pick color 2 from screen"
+                    >
+                      <Pipette 
+                        className="h-4 w-4" 
+                        style={{ color: isColorDark(item.content.color2) ? '#FEE6EA' : '#131718' }} 
+                      />
+                    </button>
+                    <button
+                      onClick={handleGradientEdit}
+                      className="p-1.5 rounded-md transition-colors hover:bg-black/10"
+                      title="Edit gradient"
+                    >
+                      <Pencil 
+                        className="h-4 w-4" 
+                        style={{ color: isColorDark(item.content.color2) ? '#FEE6EA' : '#131718' }} 
+                      />
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+            {item.content.label && (
+              <p className="text-sm font-medium text-center">
+                {item.content.label} - {item.content.color1.toUpperCase()} to {item.content.color2.toUpperCase()}
+              </p>
+            )}
+          </div>
+        )}
+
         {item.type === 'typography' && item.content.font && (
           <TypographyCard font={item.content.font} />
         )}
       </div>
+
+      {/* Edit Gradient Modal */}
+      {isEditingGradient && item.type === 'gradient' && createPortal(
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+            onClick={handleGradientCancel}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="backdrop-blur-3xl bg-[#FEE6EA]/95 border-2 border-white/30 rounded-2xl shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-sm w-full"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold">Edit Gradient</h3>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleGradientCancel}
+                  className="h-8 w-8 p-0 rounded-full hover:bg-white/20"
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+              </div>
+              
+              {/* Gradient Preview */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-2">Gradient Preview</label>
+                <div 
+                  className="w-full h-20 rounded-lg shadow-md mb-3"
+                  style={{ background: `linear-gradient(135deg, ${editGradientColor1}, ${editGradientColor2})` }}
+                />
+              </div>
+
+              {/* Color 1 */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-2">Color 1 (Click to Change)</label>
+                <label className="cursor-pointer relative block">
+                  <div 
+                    className="w-full h-14 rounded-lg shadow-md mb-1"
+                    style={{ backgroundColor: editGradientColor1 }}
+                  />
+                  <input
+                    type="color"
+                    value={editGradientColor1}
+                    onChange={(e) => setEditGradientColor1(e.target.value)}
+                    className="absolute bottom-3 left-1/2 -translate-x-1/2 opacity-0 w-0 h-0"
+                  />
+                </label>
+                <p className="text-xs text-center text-foreground/60">{editGradientColor1.toUpperCase()}</p>
+              </div>
+
+              {/* Color 2 */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-2">Color 2 (Click to Change)</label>
+                <label className="cursor-pointer relative block">
+                  <div 
+                    className="w-full h-14 rounded-lg shadow-md mb-1"
+                    style={{ backgroundColor: editGradientColor2 }}
+                  />
+                  <input
+                    type="color"
+                    value={editGradientColor2}
+                    onChange={(e) => setEditGradientColor2(e.target.value)}
+                    className="absolute bottom-3 left-1/2 -translate-x-1/2 opacity-0 w-0 h-0"
+                  />
+                </label>
+                <p className="text-xs text-center text-foreground/60">{editGradientColor2.toUpperCase()}</p>
+              </div>
+
+              {/* Label Input */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-2">Gradient Label</label>
+                <input
+                  value={editGradientLabel}
+                  onChange={(e) => setEditGradientLabel(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      handleGradientSave();
+                    } else if (e.key === 'Escape') {
+                      handleGradientCancel();
+                    }
+                  }}
+                  placeholder="Gradient Label (e.g., Primary Gradient)"
+                  className="w-full p-3 rounded-lg border-2 border-border bg-background/50 backdrop-blur-sm focus:outline-none focus:border-primary transition-colors"
+                />
+              </div>
+              
+              <div className="flex justify-end gap-2">
+                <Button
+                  variant="ghost"
+                  onClick={handleGradientCancel}
+                  className="hover:bg-white/20"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={handleGradientSave}
+                >
+                  Save
+                </Button>
+              </div>
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>,
+        document.body
+      )}
 
       {/* Edit Color Modal - Renaming and color editing */}
       {isEditingLabel && item.type === 'color' && createPortal(

@@ -11,7 +11,7 @@ import gsap from 'gsap';
 
 export interface CanvasItem {
   id: string;
-  type: 'card' | 'image' | 'text' | 'color' | 'typography' | 'link';
+  type: 'card' | 'image' | 'text' | 'color' | 'gradient' | 'typography' | 'link';
   content: any;
   position: { x: number; y: number };
 }
@@ -223,8 +223,8 @@ export default function Studio() {
     const getSpacing = (item: Omit<CanvasItem, 'id' | 'position'>) => {
       if (item.type === 'typography') {
         return 320; // Typography card height (increased from 285 to prevent overlap)
-      } else if (item.type === 'color') {
-        return 175; // Color card height (~160px) + 15px gap
+      } else if (item.type === 'color' || item.type === 'gradient') {
+        return 175; // Color/gradient card height (~160px) + 15px gap
       } else if (item.type === 'card' && (item.content.visualExample || item.content.svgPattern)) {
         // Design Elements cards have visual examples or SVG patterns
         return 240; // Custom spacing for Design Elements cards
@@ -421,7 +421,7 @@ export default function Studio() {
         minX = Math.min(minX, item.position.x);
         minY = Math.min(minY, item.position.y);
         const itemWidth = item.type === 'typography' ? 350 : 240;
-        const itemHeight = item.type === 'typography' ? 280 : (item.type === 'color' ? 160 : 200);
+        const itemHeight = item.type === 'typography' ? 280 : ((item.type === 'color' || item.type === 'gradient') ? 160 : 200);
         maxX = Math.max(maxX, item.position.x + itemWidth);
         maxY = Math.max(maxY, item.position.y + itemHeight);
       });
@@ -579,7 +579,7 @@ export default function Studio() {
         minX = Math.min(minX, item.position.x);
         minY = Math.min(minY, item.position.y);
         const itemWidth = item.type === 'typography' ? 350 : 240;
-        const itemHeight = item.type === 'typography' ? 280 : (item.type === 'color' ? 160 : 200);
+        const itemHeight = item.type === 'typography' ? 280 : ((item.type === 'color' || item.type === 'gradient') ? 160 : 200);
         maxX = Math.max(maxX, item.position.x + itemWidth);
         maxY = Math.max(maxY, item.position.y + itemHeight);
       });
