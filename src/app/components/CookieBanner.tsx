@@ -76,46 +76,64 @@ export function CookieBanner() {
           boxShadow: '0 -8px 32px rgba(0, 0, 0, 0.4), 0 0 60px rgba(254, 230, 234, 0.08)'
         }}
       >
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between gap-6">
-            {/* Content */}
-            <div className="flex-1">
-              <h3 
-                className="font-semibold text-sm mb-1"
+        <div
+          className="max-w-6xl mx-auto px-6 py-4"
+          style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}
+        >
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:gap-6">
+
+            {/* Text block + mobile X button */}
+            <div className="flex items-start justify-between gap-3 md:contents">
+              <div className="flex-1">
+                <h3
+                  className="font-semibold text-sm mb-1"
+                  style={{ color: '#FEE6EA' }}
+                >
+                  We use cookies
+                </h3>
+                <p
+                  className="text-xs leading-relaxed"
+                  style={{ color: 'rgba(254, 230, 234, 0.7)' }}
+                >
+                  This site uses Google Analytics to understand how visitors use the app and saves your data locally. No personal information is collected.
+                </p>
+              </div>
+
+              {/* Mobile-only X button */}
+              <button
+                onClick={closeWithAnimation}
+                className="md:hidden p-1.5 rounded-full transition-all hover:bg-white/10 shrink-0"
                 style={{ color: '#FEE6EA' }}
+                aria-label="Close"
               >
-                We use cookies
-              </h3>
-              <p 
-                className="text-xs leading-relaxed"
-                style={{ color: 'rgba(254, 230, 234, 0.7)' }}
-              >
-                This site uses Google Analytics to understand how visitors use the app and saves your data locally. No personal information is collected.
-              </p>
+                <X className="w-4 h-4" />
+              </button>
             </div>
 
             {/* Action Buttons */}
             <div className="flex items-center gap-3">
               <button
                 onClick={handleDecline}
-                className="px-5 py-2 text-xs font-medium rounded-lg transition-all whitespace-nowrap"
+                className="flex-1 md:flex-none px-5 py-2 text-xs font-medium rounded-lg transition-all whitespace-nowrap"
                 style={{
-                  background: 'rgba(254, 230, 234, 0.1)',
-                  border: '1px solid rgba(254, 230, 234, 0.3)',
+                  background: '#131718',
+                  border: '1px solid #FEE6EA',
                   color: '#FEE6EA'
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(254, 230, 234, 0.15)';
+                  e.currentTarget.style.background = '#FEE6EA';
+                  e.currentTarget.style.color = '#131718';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(254, 230, 234, 0.1)';
+                  e.currentTarget.style.background = '#131718';
+                  e.currentTarget.style.color = '#FEE6EA';
                 }}
               >
                 Decline
               </button>
               <button
                 onClick={handleAccept}
-                className="px-5 py-2 text-xs font-medium rounded-lg transition-all whitespace-nowrap"
+                className="flex-1 md:flex-none px-5 py-2 text-xs font-medium rounded-lg transition-all whitespace-nowrap"
                 style={{
                   background: '#FEE6EA',
                   border: '1px solid #FEE6EA',
@@ -123,26 +141,27 @@ export function CookieBanner() {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = '#131718';
-                  e.currentTarget.style.border = '1px solid #FEE6EA';
                   e.currentTarget.style.color = '#FEE6EA';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = '#FEE6EA';
-                  e.currentTarget.style.border = '1px solid #FEE6EA';
                   e.currentTarget.style.color = '#131718';
                 }}
               >
                 Accept
               </button>
+
+              {/* Desktop-only X button */}
               <button
                 onClick={closeWithAnimation}
-                className="p-2 rounded-full transition-all hover:bg-white/10 ml-2"
+                className="hidden md:block p-2 rounded-full transition-all hover:bg-white/10 ml-2"
                 style={{ color: '#FEE6EA' }}
                 aria-label="Close"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
+
           </div>
         </div>
       </div>

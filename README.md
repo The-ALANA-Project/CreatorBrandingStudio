@@ -1,5 +1,7 @@
 # Creator Branding Studio
 
+![Creator Branding Studio](https://pink-quick-lizard-297.mypinata.cloud/ipfs/bafybeibelixdpkaijzy224nq7bpu37qtmqtgpwpn636bbsqkowxpgqax4q/CBS-Social%20Crawler%20Image.png)
+
 An interactive personal branding journey studio that transforms your goals and aesthetics into a tailored personal brand concept in less than 30 minutes. Build your brand visually on a freeform canvas through a 10-step guided journey, then export a complete brief for a brand designer you hire or yourself to continue the work.
 
 **This softwar is PROPRIETARY SOFTWARE - All Rights Reserved. This code is NOT open source. See LICENSE.txt for details.**
@@ -73,4 +75,3 @@ This is **proprietary software**. This tool represents significant creative and 
 - ❌ **NO redistribution** - You may not share, distribute, or sublicense this software
 - ✅ **Viewing only** - You may view the source code for educational purposes
 - ✅ **Official use only** - Use the tool through https://creator-branding.com/
-
