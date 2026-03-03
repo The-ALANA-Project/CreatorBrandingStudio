@@ -792,7 +792,7 @@ export function StepVisualLab({ onAddItem, onAddItemsVertical, onAddItemsHorizon
               </span>
             </div>
             <p className="text-muted-foreground">
-              Pick one from each pair that feels more like your style or aesthetic vibe. Don't overthink and let your intuition guide you!
+              Pick one from each pair that feels more like your style or aesthetic vibe. Don't overthink and let your intuition guide you! Ps: Don't be surprised if this process feels slightly exhausting, it is so by design.
             </p>
           </div>
 
