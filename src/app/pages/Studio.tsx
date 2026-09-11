@@ -521,7 +521,7 @@ export default function Studio() {
 
       // Draw footer text
       finalCtx.fillStyle = '#131718';
-      finalCtx.font = '32px "Work Sans", sans-serif'; // 2x for retina
+      finalCtx.font = '32px "Geist", sans-serif'; // 2x for retina
       finalCtx.textAlign = 'left';
       finalCtx.textBaseline = 'middle';
       
@@ -536,15 +536,15 @@ export default function Studio() {
       finalCtx.fillText(text, x, y);
       x += finalCtx.measureText(text).width;
       
-      finalCtx.font = 'bold 32px "Work Sans", sans-serif';
+      finalCtx.font = 'bold 32px "Geist", sans-serif';
       finalCtx.fillText(boldText, x, y);
       x += finalCtx.measureText(boldText).width;
       
-      finalCtx.font = '32px "Work Sans", sans-serif';
+      finalCtx.font = '32px "Geist", sans-serif';
       finalCtx.fillText(text2, x, y);
       x += finalCtx.measureText(text2).width;
       
-      finalCtx.font = 'bold 32px "Work Sans", sans-serif';
+      finalCtx.font = 'bold 32px "Geist", sans-serif';
       finalCtx.fillText(boldText2, x, y);
 
       // Create PDF
@@ -679,7 +679,7 @@ export default function Studio() {
 
       // Draw footer text
       finalCtx.fillStyle = '#131718';
-      finalCtx.font = '32px "Work Sans", sans-serif'; // 2x for retina
+      finalCtx.font = '32px "Geist", sans-serif'; // 2x for retina
       finalCtx.textAlign = 'left';
       finalCtx.textBaseline = 'middle';
       
@@ -694,15 +694,15 @@ export default function Studio() {
       finalCtx.fillText(text, x, y);
       x += finalCtx.measureText(text).width;
       
-      finalCtx.font = 'bold 32px "Work Sans", sans-serif';
+      finalCtx.font = 'bold 32px "Geist", sans-serif';
       finalCtx.fillText(boldText, x, y);
       x += finalCtx.measureText(boldText).width;
       
-      finalCtx.font = '32px "Work Sans", sans-serif';
+      finalCtx.font = '32px "Geist", sans-serif';
       finalCtx.fillText(text2, x, y);
       x += finalCtx.measureText(text2).width;
       
-      finalCtx.font = 'bold 32px "Work Sans", sans-serif';
+      finalCtx.font = 'bold 32px "Geist", sans-serif';
       finalCtx.fillText(boldText2, x, y);
 
       // Download

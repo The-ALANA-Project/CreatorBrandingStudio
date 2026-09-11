@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/app/components/ui/button';
 import { motion, AnimatePresence } from 'motion/react';
-import { Sparkles, ChevronRight, ChevronLeft } from 'lucide-react';
+import { Sparkles, ChevronRight, ChevronLeft } from '@/app/lib/icons';
 import type { CanvasItem, JourneyData } from '@/app/pages/Studio';
 import { useDrag } from 'react-dnd';
 

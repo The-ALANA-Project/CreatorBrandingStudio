@@ -1,4 +1,4 @@
-import { ZoomIn, ZoomOut } from 'lucide-react';
+import { ZoomIn, ZoomOut } from '@/app/lib/icons';
 import { Button } from '@/app/components/ui/button';
 import { useState, useRef, useEffect } from 'react';
 

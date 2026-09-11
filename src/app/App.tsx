@@ -30,7 +30,7 @@ class ErrorBoundary extends Component<
           alignItems: 'center', 
           justifyContent: 'center', 
           height: '100vh',
-          fontFamily: 'Work Sans, sans-serif',
+          fontFamily: 'Geist, sans-serif',
           color: '#131718'
         }}>
           <div style={{ textAlign: 'center' }}>

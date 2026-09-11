@@ -1,6 +1,6 @@
 import { Button } from '@/app/components/ui/button';
 import { useState, useEffect } from 'react';
-import { Pipette, Undo2, Redo2 } from 'lucide-react';
+import { Pipette, Undo2, Redo2 } from '@/app/lib/icons';
 import type { CanvasItem, JourneyData } from '@/app/pages/Studio';
 import { useDrag } from 'react-dnd';
 

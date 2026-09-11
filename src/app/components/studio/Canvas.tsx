@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd';
 import { useNavigate } from 'react-router';
 import { DraggableCanvasItem } from './DraggableCanvasItem';
 import type { CanvasItem } from '@/app/pages/Studio';
-import { Home, ZoomIn, ZoomOut, Download, Upload, FileJson, FileImage, FileText, Trash2, Type, StickyNote, Palette, Link, ImagePlus, BookOpen, Play } from 'lucide-react';
+import { Home, ZoomIn, ZoomOut, Download, Upload, FileJson, FileImage, FileText, Trash2, Type, StickyNote, Palette, Link, ImagePlus, BookOpen, Play } from '@/app/lib/icons';
 
 interface CanvasProps {
   items: CanvasItem[];

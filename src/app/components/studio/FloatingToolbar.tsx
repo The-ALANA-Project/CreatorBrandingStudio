@@ -5,7 +5,7 @@ import {
   Palette, 
   Pipette,
   X,
-} from 'lucide-react';
+} from '@/app/lib/icons';
 import { motion, AnimatePresence } from 'motion/react';
 import type { CanvasItem } from '@/app/pages/Studio';
 import { Button } from '../ui/button';

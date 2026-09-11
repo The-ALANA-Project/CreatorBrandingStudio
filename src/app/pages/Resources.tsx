@@ -1,6 +1,6 @@
 import { StudioHeader } from '@/app/components/studio/StudioHeader';
 import { useNavigate } from 'react-router';
-import { Home, ExternalLink } from 'lucide-react';
+import { Home, ExternalLink } from '@/app/lib/icons';
 import { ImageWithFallback } from '@/app/components/figma/ImageWithFallback';
 import { SEO } from '@/app/components/SEO';
 

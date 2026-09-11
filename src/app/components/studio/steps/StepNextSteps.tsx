@@ -1,5 +1,5 @@
 import { Button } from '@/app/components/ui/button';
-import { CheckCircle2, Circle, ExternalLink, Download } from 'lucide-react';
+import { CheckCircle2, Circle, ExternalLink, Download } from '@/app/lib/icons';
 import { useState, useEffect } from 'react';
 import type { CanvasItem, JourneyData } from '@/app/pages/Studio';
 

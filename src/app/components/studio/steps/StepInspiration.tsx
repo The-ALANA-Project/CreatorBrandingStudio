@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/app/components/ui/button';
-import { ExternalLink, Image as ImageIcon, Link2, Plus } from 'lucide-react';
+import { ExternalLink, Image as ImageIcon, Link2, Plus } from '@/app/lib/icons';
 import type { CanvasItem, JourneyData } from '@/app/pages/Studio';
 
 interface StepInspirationProps {

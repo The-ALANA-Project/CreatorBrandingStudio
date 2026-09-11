@@ -1,5 +1,5 @@
 import { Button } from '@/app/components/ui/button';
-import { Sparkles } from 'lucide-react';
+import { Sparkles } from '@/app/lib/icons';
 import { useState, useEffect } from 'react';
 import type { CanvasItem, JourneyData } from '@/app/pages/Studio';
 

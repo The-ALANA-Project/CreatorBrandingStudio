@@ -2,7 +2,7 @@ import { Button } from '@/app/components/ui/button';
 import type { CanvasItem, JourneyData } from '@/app/pages/Studio';
 import { useDrag } from 'react-dnd';
 import { useState, useEffect } from 'react';
-import { Plus, GripVertical, Trash2, Sparkles, Type, Image, Grid, Palette, ArrowRight } from 'lucide-react';
+import { Plus, GripVertical, Trash2, Sparkles, Type, Image, Grid, Palette, ArrowRight } from '@/app/lib/icons';
 
 interface StepDesignElementsProps {
   onAddItem: (item: Omit<CanvasItem, 'id' | 'position'>) => void;

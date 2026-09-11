@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/app/components/ui/button';
 import { motion } from 'motion/react';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink } from '@/app/lib/icons';
 import type { CanvasItem, JourneyData } from '@/app/pages/Studio';
 import { useDrag } from 'react-dnd';
 

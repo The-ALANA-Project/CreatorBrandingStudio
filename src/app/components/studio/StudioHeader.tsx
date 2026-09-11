@@ -1,4 +1,4 @@
-import { ChevronsLeft } from 'lucide-react';
+import { ChevronsLeft } from '@/app/lib/icons';
 import { useNavigate, useLocation } from 'react-router';
 
 export function StudioHeader() {

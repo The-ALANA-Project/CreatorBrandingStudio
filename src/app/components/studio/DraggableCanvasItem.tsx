@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDrag } from 'react-dnd';
-import { X, Pipette, Pencil, ExternalLink, Copy } from 'lucide-react';
+import { X, Pipette, Pencil, ExternalLink, Copy } from '@/app/lib/icons';
 import { Button } from '@/app/components/ui/button';
 import { motion, AnimatePresence } from 'motion/react';
 import type { CanvasItem } from '@/app/pages/Studio';
