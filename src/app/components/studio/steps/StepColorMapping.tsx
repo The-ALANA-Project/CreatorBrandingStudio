@@ -56,7 +56,7 @@ const DraggableColorChip = ({
       <div className="relative group">
         <div
           ref={drag}
-          className="w-full h-20 rounded-[10px] border border-white/30 relative overflow-hidden transition-transform hover:scale-105 cursor-grab active:cursor-grabbing"
+          className="w-full h-20 rounded-lg border border-white/30 relative overflow-hidden transition-transform hover:scale-105 cursor-grab active:cursor-grabbing"
           style={{ 
             backgroundColor: color,
             opacity: isDragging ? 0.5 : 1 
@@ -854,7 +854,7 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
       </div>
 
       {/* Main Color Palette - 5 colors in one row */}
-      <div className="backdrop-blur-xl bg-white/40 border border-white/20 rounded-2xl p-6 shadow-lg">
+      <div className="backdrop-blur-xl bg-white/40 border border-white/20 rounded-lg p-6 shadow-lg">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-semibold">Primary Palette</h3>
           <div className="flex items-center gap-3">
@@ -910,7 +910,7 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
 
       {/* Secondary Palette - Lower Saturation */}
       {isComplete && (
-        <div className="backdrop-blur-xl bg-white/40 border border-white/20 rounded-2xl p-6 shadow-lg">
+        <div className="backdrop-blur-xl bg-white/40 border border-white/20 rounded-lg p-6 shadow-lg">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="font-semibold">Secondary Palette</h3>
@@ -940,7 +940,7 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
 
       {/* Tertiary Palette - Higher Saturation */}
       {isComplete && (
-        <div className="backdrop-blur-xl bg-white/40 border border-white/20 rounded-2xl p-6 shadow-lg">
+        <div className="backdrop-blur-xl bg-white/40 border border-white/20 rounded-lg p-6 shadow-lg">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="font-semibold">Tertiary Palette</h3>
@@ -970,7 +970,7 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
 
       {/* Color Source Panel - Show Extracted Colors */}
       {debugData && (
-        <div className="backdrop-blur-xl bg-white/40 border border-white/20 rounded-2xl p-6 shadow-lg">
+        <div className="backdrop-blur-xl bg-white/40 border border-white/20 rounded-lg p-6 shadow-lg">
           <div className="mb-6">
             <h3 className="font-semibold mb-1">Color Source Breakdown</h3>
             <p className="text-xs text-muted-foreground">

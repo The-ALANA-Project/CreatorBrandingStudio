@@ -189,7 +189,7 @@ export function StepDesignElements({ onAddItem, onAddItemsVertical, onNext, jour
             {/* Typography */}
             <button
               onClick={() => setNewPrinciple("Bold typography as the hero - minimal decoration, let words speak")}
-              className="group relative bg-gradient-to-br from-[#131718] to-[#2a2d2e] rounded-xl p-5 text-left hover:scale-[1.02] transition-transform overflow-hidden"
+              className="group relative bg-gradient-to-br from-[#131718] to-[#2a2d2e] rounded-lg p-5 text-left hover:scale-[1.02] transition-transform overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-20 h-20 bg-[#FEE6EA]/10 rounded-full blur-2xl" />
               <Type className="w-6 h-6 text-[#FEE6EA] mb-3" />
@@ -202,7 +202,7 @@ export function StepDesignElements({ onAddItem, onAddItemsVertical, onNext, jour
             {/* Layout */}
             <button
               onClick={() => setNewPrinciple("Use generous white space - designs should breathe, never feel cramped")}
-              className="group relative bg-gradient-to-br from-[#131718] to-[#2a2d2e] rounded-xl p-5 text-left hover:scale-[1.02] transition-transform overflow-hidden"
+              className="group relative bg-gradient-to-br from-[#131718] to-[#2a2d2e] rounded-lg p-5 text-left hover:scale-[1.02] transition-transform overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-20 h-20 bg-[#FEE6EA]/10 rounded-full blur-2xl" />
               <Grid className="w-6 h-6 text-[#FEE6EA] mb-3" />
@@ -215,7 +215,7 @@ export function StepDesignElements({ onAddItem, onAddItemsVertical, onNext, jour
             {/* Imagery */}
             <button
               onClick={() => setNewPrinciple("Photography should feel candid and human, not staged or sterile")}
-              className="group relative bg-gradient-to-br from-[#131718] to-[#2a2d2e] rounded-xl p-5 text-left hover:scale-[1.02] transition-transform overflow-hidden"
+              className="group relative bg-gradient-to-br from-[#131718] to-[#2a2d2e] rounded-lg p-5 text-left hover:scale-[1.02] transition-transform overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-20 h-20 bg-[#FEE6EA]/10 rounded-full blur-2xl" />
               <Image className="w-6 h-6 text-[#FEE6EA] mb-3" />
@@ -228,7 +228,7 @@ export function StepDesignElements({ onAddItem, onAddItemsVertical, onNext, jour
             {/* Color */}
             <button
               onClick={() => setNewPrinciple("Vibrant color as accents only - restrained but impactful")}
-              className="group relative bg-gradient-to-br from-[#131718] to-[#2a2d2e] rounded-xl p-5 text-left hover:scale-[1.02] transition-transform overflow-hidden"
+              className="group relative bg-gradient-to-br from-[#131718] to-[#2a2d2e] rounded-lg p-5 text-left hover:scale-[1.02] transition-transform overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-20 h-20 bg-[#FEE6EA]/10 rounded-full blur-2xl" />
               <Palette className="w-6 h-6 text-[#FEE6EA] mb-3" />

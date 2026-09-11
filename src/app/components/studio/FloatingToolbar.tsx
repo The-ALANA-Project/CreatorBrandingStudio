@@ -223,7 +223,7 @@ export function FloatingToolbar({ onAddItem }: FloatingToolbarProps) {
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Liquid Glass Menu */}
-                <div className="relative flex flex-col overflow-hidden rounded-2xl shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] min-w-[180px] will-change-transform">
+                <div className="relative flex flex-col overflow-hidden rounded-lg shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] min-w-[180px] will-change-transform">
                   {/* Glass Effect Layer */}
                   <div 
                     className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
@@ -256,7 +256,7 @@ export function FloatingToolbar({ onAddItem }: FloatingToolbarProps) {
                         setShowTextInput(true);
                         setIsExpanded(false);
                       }}
-                      className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded-xl transition-all duration-100 text-left"
+                      className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded transition-all duration-100 text-left"
                     >
                       <Type className="w-4 h-4" />
                       Add Title
@@ -266,7 +266,7 @@ export function FloatingToolbar({ onAddItem }: FloatingToolbarProps) {
                         setShowNoteInput(true);
                         setIsExpanded(false);
                       }}
-                      className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded-xl transition-all duration-100 text-left"
+                      className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded transition-all duration-100 text-left"
                     >
                       <StickyNote className="w-4 h-4" />
                       Add Note
@@ -276,7 +276,7 @@ export function FloatingToolbar({ onAddItem }: FloatingToolbarProps) {
                         setShowColorPicker(true);
                         setIsExpanded(false);
                       }}
-                      className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded-xl transition-all duration-100 text-left"
+                      className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded transition-all duration-100 text-left"
                     >
                       <Palette className="w-4 h-4" />
                       Add Color
@@ -301,7 +301,7 @@ export function FloatingToolbar({ onAddItem }: FloatingToolbarProps) {
                           }
                         }, 300);
                       }}
-                      className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded-xl transition-all duration-100 text-left"
+                      className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded transition-all duration-100 text-left"
                     >
                       <Pipette className="w-4 h-4" />
                       Pick Color
@@ -329,7 +329,7 @@ export function FloatingToolbar({ onAddItem }: FloatingToolbarProps) {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="backdrop-blur-3xl bg-[#FEE6EA]/95 border-2 border-white/30 rounded-2xl shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-md w-full"
+              className="backdrop-blur-3xl bg-[#FEE6EA]/95 border-2 border-white/30 rounded-lg shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-md w-full"
             >
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">Add Title</h3>
@@ -386,7 +386,7 @@ export function FloatingToolbar({ onAddItem }: FloatingToolbarProps) {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="backdrop-blur-3xl bg-[#FEE6EA]/95 border-2 border-white/30 rounded-2xl shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-md w-full"
+              className="backdrop-blur-3xl bg-[#FEE6EA]/95 border-2 border-white/30 rounded-lg shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-md w-full"
             >
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">Add Note</h3>
@@ -450,7 +450,7 @@ export function FloatingToolbar({ onAddItem }: FloatingToolbarProps) {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="backdrop-blur-3xl bg-[#FEE6EA]/95 border-2 border-white/30 rounded-2xl shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-md w-full"
+              className="backdrop-blur-3xl bg-[#FEE6EA]/95 border-2 border-white/30 rounded-lg shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-md w-full"
             >
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">Add Color</h3>
@@ -532,7 +532,7 @@ export function FloatingToolbar({ onAddItem }: FloatingToolbarProps) {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="backdrop-blur-3xl bg-[#FEE6EA]/95 border-2 border-white/30 rounded-2xl shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-md w-full"
+              className="backdrop-blur-3xl bg-[#FEE6EA]/95 border-2 border-white/30 rounded-lg shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-md w-full"
             >
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">Picked Color</h3>

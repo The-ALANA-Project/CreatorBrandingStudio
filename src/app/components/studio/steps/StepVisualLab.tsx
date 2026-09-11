@@ -441,7 +441,7 @@ function ImageAdjectiveCard({
   const relatedWords2 = getRelatedWords(adj2);
 
   return (
-    <div className="backdrop-blur-2xl bg-card/80 border border-border rounded-2xl p-4">
+    <div className="backdrop-blur-2xl bg-card/80 border border-border rounded-lg p-4">
       <div className="mb-4">
         <img 
           src={image.url} 
@@ -807,13 +807,13 @@ export function StepVisualLab({ onAddItem, onAddItemsVertical, onAddItemsHorizon
               return (
                 <div key={rowIndex} className="flex gap-6">
                   {/* Pair 1 Container */}
-                  <div className="flex-1 backdrop-blur-sm bg-white/5 border border-white/10 rounded-2xl p-3">
+                  <div className="flex-1 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg p-3">
                     <div className="grid grid-cols-2 gap-3">
                       {/* Pair 1 - Option A */}
                       <motion.button
                         onClick={() => selectImage(pair1Index, 'A')}
                         className={`
-                          group relative overflow-hidden rounded-[10px] bg-card border transition-all cursor-pointer
+                          group relative overflow-hidden rounded-lg bg-card border transition-all cursor-pointer
                           ${getSelectedOption(pair1Index) === 'A' 
                             ? 'border-primary' 
                             : getSelectedOption(pair1Index) === 'B'
@@ -848,7 +848,7 @@ export function StepVisualLab({ onAddItem, onAddItemsVertical, onAddItemsHorizon
                       <motion.button
                         onClick={() => selectImage(pair1Index, 'B')}
                         className={`
-                          group relative overflow-hidden rounded-[10px] bg-card border transition-all cursor-pointer
+                          group relative overflow-hidden rounded-lg bg-card border transition-all cursor-pointer
                           ${getSelectedOption(pair1Index) === 'B' 
                             ? 'border-primary' 
                             : getSelectedOption(pair1Index) === 'A'
@@ -883,13 +883,13 @@ export function StepVisualLab({ onAddItem, onAddItemsVertical, onAddItemsHorizon
 
                   {/* Pair 2 Container (if exists) */}
                   {pair2 && (
-                    <div className="flex-1 backdrop-blur-sm bg-white/5 border border-white/10 rounded-2xl p-3">
+                    <div className="flex-1 backdrop-blur-sm bg-white/5 border border-white/10 rounded-lg p-3">
                       <div className="grid grid-cols-2 gap-3">
                         {/* Pair 2 - Option A */}
                         <motion.button
                           onClick={() => selectImage(pair2Index, 'A')}
                           className={`
-                            group relative overflow-hidden rounded-[10px] bg-card border transition-all cursor-pointer
+                            group relative overflow-hidden rounded-lg bg-card border transition-all cursor-pointer
                             ${getSelectedOption(pair2Index) === 'A' 
                               ? 'border-primary' 
                               : getSelectedOption(pair2Index) === 'B'
@@ -924,7 +924,7 @@ export function StepVisualLab({ onAddItem, onAddItemsVertical, onAddItemsHorizon
                         <motion.button
                           onClick={() => selectImage(pair2Index, 'B')}
                           className={`
-                            group relative overflow-hidden rounded-[10px] bg-card border transition-all cursor-pointer
+                            group relative overflow-hidden rounded-lg bg-card border transition-all cursor-pointer
                             ${getSelectedOption(pair2Index) === 'B' 
                               ? 'border-primary' 
                               : getSelectedOption(pair2Index) === 'A'
@@ -1065,7 +1065,7 @@ export function StepVisualLab({ onAddItem, onAddItemsVertical, onAddItemsHorizon
           </div>
 
           {/* Adjective chips - Always on top */}
-          <div className="backdrop-blur-2xl bg-card/80 border border-border rounded-2xl p-6 mb-6">
+          <div className="backdrop-blur-2xl bg-card/80 border border-border rounded-lg p-6 mb-6">
             <h3 className="font-semibold mb-4">
               {isFiltering ? 'All Your Adjectives - Click to select' : 'Your Shortlist'}
             </h3>

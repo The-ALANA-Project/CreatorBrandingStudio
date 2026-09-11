@@ -763,7 +763,7 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
       {/* Empty state */}
       {items.length === 0 && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-10">
-          <div className="backdrop-blur-3xl border-2 border-white/40 rounded-3xl shadow-[0_16px_64px_0_rgba(0,0,0,0.08)] px-12 py-10 text-center max-w-2xl bg-[#fee6ea]">
+          <div className="backdrop-blur-3xl border-2 border-white/40 rounded-lg shadow-[0_16px_64px_0_rgba(0,0,0,0.08)] px-12 py-10 text-center max-w-2xl bg-[#fee6ea]">
             <h3 className="font-bold mb-4 text-foreground text-[25px]">
               Your Brand Canvas Awaits
             </h3>
@@ -884,7 +884,7 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
           {showClearModal && (
             <div className="absolute top-0 left-14 z-30">
               {/* Liquid Glass Menu */}
-              <div className="relative flex flex-col overflow-hidden rounded-2xl shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] min-w-[200px] will-change-transform">
+              <div className="relative flex flex-col overflow-hidden rounded-lg shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] min-w-[200px] will-change-transform">
                 {/* Glass Effect Layer */}
                 <div 
                   className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
@@ -914,7 +914,7 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
                 <div className="relative z-[3] p-2 space-y-1">
                   {onClearCanvas && (
                     <button
-                      className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded-xl transition-all duration-100 text-left"
+                      className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded transition-all duration-100 text-left"
                       onClick={() => {
                         onClearCanvas();
                         setShowClearModal(false);
@@ -926,7 +926,7 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
                   )}
                   {onClearAll && (
                     <button
-                      className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded-xl transition-all duration-100 text-left"
+                      className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded transition-all duration-100 text-left"
                       onClick={() => {
                         onClearAll();
                         setShowClearModal(false);
@@ -1068,7 +1068,7 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
                 className="absolute top-0 left-14 z-30"
               >
                 {/* Liquid Glass Menu */}
-                <div className="relative flex flex-col overflow-hidden rounded-2xl shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] min-w-[140px] will-change-transform">
+                <div className="relative flex flex-col overflow-hidden rounded-lg shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] min-w-[140px] will-change-transform">
                   {/* Glass Effect Layer */}
                   <div 
                     className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
@@ -1098,7 +1098,7 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
                   <div className="relative z-[3] p-2 space-y-1">
                     {onDownloadProgress && (
                       <button
-                        className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded-xl transition-all duration-100 text-left"
+                        className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded transition-all duration-100 text-left"
                         onClick={() => {
                           onDownloadProgress();
                           setShowDownloadMenu(false);
@@ -1110,7 +1110,7 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
                     )}
                     {onExportPNG && (
                       <button
-                        className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded-xl transition-all duration-100 text-left"
+                        className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded transition-all duration-100 text-left"
                         onClick={() => {
                           onExportPNG();
                           setShowDownloadMenu(false);
@@ -1122,7 +1122,7 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
                     )}
                     {onExportPDF && (
                       <button
-                        className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded-xl transition-all duration-100 text-left"
+                        className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded transition-all duration-100 text-left"
                         onClick={() => {
                           onExportPDF();
                           setShowDownloadMenu(false);
@@ -1185,7 +1185,7 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
                 className="absolute top-0 left-14 z-30"
               >
                 {/* Liquid Glass Menu */}
-                <div className="relative flex flex-col overflow-hidden rounded-2xl shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] min-w-[140px] will-change-transform">
+                <div className="relative flex flex-col overflow-hidden rounded-lg shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] min-w-[140px] will-change-transform">
                   {/* Glass Effect Layer */}
                   <div 
                     className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
@@ -1215,7 +1215,7 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
                   <div className="relative z-[3] p-2 space-y-1">
                     {onUploadProgress && (
                       <button
-                        className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded-xl transition-all duration-100 text-left"
+                        className="w-full flex items-center gap-3 px-4 py-3 text-sm text-foreground/90 hover:text-foreground hover:bg-white/30 hover:shadow-[inset_-2px_-2px_2px_rgba(0,0,0,0.1)] hover:backdrop-blur-[2px] rounded transition-all duration-100 text-left"
                         onClick={() => {
                           onUploadProgress();
                           setShowUploadMenu(false);
@@ -1522,7 +1522,7 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
         <div className="absolute top-0 left-0 right-0 bottom-0 z-50 flex items-center justify-center bg-black/20 backdrop-blur-sm">
           <div 
             ref={linkModalRef}
-            className="backdrop-blur-3xl bg-[#FEE6EA]/95 border border-[#131718] rounded-2xl shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-md w-full mx-4"
+            className="backdrop-blur-3xl bg-[#FEE6EA]/95 border border-[#131718] rounded-lg shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-md w-full mx-4"
           >
             <h3 className="text-lg font-semibold mb-4">Add Link Card</h3>
             <input
@@ -1551,14 +1551,14 @@ export function Canvas({ items, selectedItems = [], onUpdatePosition, onUpdateCo
             )}
             <div className="flex gap-3">
               <button
-                className="flex-1 px-4 py-2.5 bg-[#131718] text-white border border-[#131718] rounded-lg text-sm font-medium hover:bg-[#FEE6EA] hover:text-[#131718] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+                className="flex-1 px-4 py-2.5 bg-[#131718] text-white border border-[#131718] rounded text-sm font-medium hover:bg-[#FEE6EA] hover:text-[#131718] disabled:opacity-40 disabled:cursor-not-allowed transition-all"
                 onClick={handleSubmitLink}
                 disabled={!linkUrl.trim() || isLoadingLinkPreview}
               >
                 {isLoadingLinkPreview ? 'Loading...' : 'Add Link'}
               </button>
               <button
-                className="flex-1 px-4 py-2.5 bg-white/50 text-foreground rounded-lg text-sm font-medium hover:bg-white/70 transition-all"
+                className="flex-1 px-4 py-2.5 bg-white/50 text-foreground rounded text-sm font-medium hover:bg-white/70 transition-all"
                 onClick={() => setShowLinkModal(false)}
                 disabled={isLoadingLinkPreview}
               >

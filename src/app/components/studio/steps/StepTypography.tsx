@@ -417,7 +417,7 @@ function FontCard({ font, onDragStart, isSelected = false, onSelect }: FontCardP
     <div
       ref={drag}
       onClick={() => onSelect?.()}
-      className={`relative backdrop-blur-3xl bg-white/80 border rounded-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] p-6 cursor-pointer transition-all hover:shadow-[0_12px_48px_0_rgba(0,0,0,0.12)] hover:scale-[1.02] ${
+      className={`relative backdrop-blur-3xl bg-white/80 border rounded-lg shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] p-6 cursor-pointer transition-all hover:shadow-[0_12px_48px_0_rgba(0,0,0,0.12)] hover:scale-[1.02] ${
         isDragging ? 'opacity-50' : 'opacity-100'
       } ${
         isSelected ? 'border-primary' : 'border-white/40'

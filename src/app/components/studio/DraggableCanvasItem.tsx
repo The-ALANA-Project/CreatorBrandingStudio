@@ -747,7 +747,7 @@ export function DraggableCanvasItem({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="backdrop-blur-3xl bg-[#FEE6EA]/95 border-2 border-white/30 rounded-2xl shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-sm w-full"
+              className="backdrop-blur-3xl bg-[#FEE6EA]/95 border-2 border-white/30 rounded-lg shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-sm w-full"
             >
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">Edit Gradient</h3>
@@ -859,7 +859,7 @@ export function DraggableCanvasItem({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="backdrop-blur-3xl bg-[#FEE6EA]/95 border-2 border-white/30 rounded-2xl shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-sm w-full"
+              className="backdrop-blur-3xl bg-[#FEE6EA]/95 border-2 border-white/30 rounded-lg shadow-[0_16px_64px_0_rgba(0,0,0,0.15)] p-6 max-w-sm w-full"
             >
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold">Edit Color</h3>

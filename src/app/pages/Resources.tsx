@@ -133,7 +133,7 @@ export default function Resources() {
           {/* Hire an Expert Section */}
           <section className="mb-16">
             <div 
-              className="relative p-6 rounded-2xl overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] mb-6"
+              className="relative p-6 rounded-lg overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] mb-6"
               style={{
                 backgroundColor: 'rgba(254, 230, 234, 0.6)',
                 backdropFilter: 'blur(12px)',
@@ -158,7 +158,7 @@ export default function Resources() {
               {experts.map((expert, index) => (
                 <div
                   key={index}
-                  className="group relative p-6 rounded-2xl overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] transition-all duration-300 hover:shadow-[0_12px_40px_0_rgba(0,0,0,0.12)]"
+                  className="group relative p-6 rounded-lg overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] transition-all duration-300 hover:shadow-[0_12px_40px_0_rgba(0,0,0,0.12)]"
                   style={{
                     backgroundColor: 'rgba(254, 230, 234, 0.6)',
                     backdropFilter: 'blur(12px)',
@@ -177,7 +177,7 @@ export default function Resources() {
                     <ImageWithFallback
                       src={expert.image}
                       alt={expert.name}
-                      className="w-20 h-20 rounded-[10px] object-cover border border-[#131718] grayscale"
+                      className="w-20 h-20 rounded-lg object-cover border border-[#131718] grayscale"
                     />
                   </div>
                   
@@ -210,7 +210,7 @@ export default function Resources() {
           {/* Tools & Templates Section */}
           <section className="mb-16">
             <div 
-              className="relative p-6 rounded-2xl overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] mb-6"
+              className="relative p-6 rounded-lg overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] mb-6"
               style={{
                 backgroundColor: 'rgba(254, 230, 234, 0.6)',
                 backdropFilter: 'blur(12px)',
@@ -235,7 +235,7 @@ export default function Resources() {
               {tools.map((tool, index) => (
                 <div
                   key={index}
-                  className="group relative p-6 rounded-2xl overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] transition-all duration-300 hover:shadow-[0_12px_40px_0_rgba(0,0,0,0.12)]"
+                  className="group relative p-6 rounded-lg overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] transition-all duration-300 hover:shadow-[0_12px_40px_0_rgba(0,0,0,0.12)]"
                   style={{
                     backgroundColor: 'rgba(254, 230, 234, 0.6)',
                     backdropFilter: 'blur(12px)',
@@ -270,7 +270,7 @@ export default function Resources() {
           {/* Supporting Tools Section */}
           <section className="mb-16">
             <div 
-              className="relative p-6 rounded-2xl overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] mb-6"
+              className="relative p-6 rounded-lg overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] mb-6"
               style={{
                 backgroundColor: 'rgba(254, 230, 234, 0.6)',
                 backdropFilter: 'blur(12px)',
@@ -295,7 +295,7 @@ export default function Resources() {
               {supportingTools.map((tool, index) => (
                 <div
                   key={index}
-                  className="group relative p-6 rounded-2xl overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] transition-all duration-300 hover:shadow-[0_12px_40px_0_rgba(0,0,0,0.12)]"
+                  className="group relative p-6 rounded-lg overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] transition-all duration-300 hover:shadow-[0_12px_40px_0_rgba(0,0,0,0.12)]"
                   style={{
                     backgroundColor: 'rgba(254, 230, 234, 0.6)',
                     backdropFilter: 'blur(12px)',

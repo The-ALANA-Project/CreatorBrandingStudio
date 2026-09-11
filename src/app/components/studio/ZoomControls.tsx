@@ -79,7 +79,7 @@ export function ZoomControls({ zoom, onZoomIn, onZoomOut, onZoomReset }: ZoomCon
       {/* Add padding wrapper for larger drag area */}
       <div className="p-2">
         {/* Liquid Glass Wrapper */}
-        <div className="relative flex overflow-hidden rounded-2xl shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] transition-all duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,2.2)] hover:shadow-[0_8px_8px_rgba(0,0,0,0.25),0_0_24px_rgba(0,0,0,0.15)]">
+        <div className="relative flex overflow-hidden rounded-lg shadow-[0_6px_6px_rgba(0,0,0,0.2),0_0_20px_rgba(0,0,0,0.1)] transition-all duration-[400ms] ease-[cubic-bezier(0.175,0.885,0.32,2.2)] hover:shadow-[0_8px_8px_rgba(0,0,0,0.25),0_0_24px_rgba(0,0,0,0.15)]">
           {/* Glass Effect Layer */}
           <div 
             className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
