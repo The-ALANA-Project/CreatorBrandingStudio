@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://creatorpricing.com/sitemap.xml
+Sitemap: https://creator-branding.com/sitemap.xml
