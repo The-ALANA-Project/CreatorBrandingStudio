@@ -209,10 +209,7 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
     // Get selected images from Visual Lab Round 3 (the 3 final result images)
     const visualLabData = journeyData.visualLab;
     
-    console.log('📦 Full Visual Lab Data:', visualLabData);
-    
     if (!visualLabData || !visualLabData.selectedImages || visualLabData.selectedImages.length === 0) {
-      console.log('No Visual Lab images found, using defaults');
       // Fallback to default colors if no images
       const defaultColors = [
         '#F5E6D3', // neutral 1
@@ -235,10 +232,6 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
     const selectedForTriangle = visualLabData.selectedForTriangle || [];
     const imageAdjectives = visualLabData.imageAdjectives || {};
     const selectedImages = visualLabData.selectedImages || [];
-    
-    console.log('🎯 Selected adjectives from Round 3:', selectedForTriangle);
-    console.log('📝 Image adjectives mapping:', imageAdjectives);
-    console.log('🖼️ All selected images from Round 1:', selectedImages);
     
     // Find the 3 specific images that correspond to the Round 3 selected adjectives
     const finalResultImages: { url: string; adjective: string; pairIndex: number }[] = [];
@@ -266,8 +259,6 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
       }
     });
     
-    console.log('✅ Final 3 result images from Round 3:', finalResultImages);
-    
     if (finalResultImages.length === 0) {
       console.warn('⚠️ Could not find final result images, falling back to first 3 selected images');
       // Fallback to first 3 selected images if we can't determine the Round 3 results
@@ -281,13 +272,10 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
     }
     
     const imageUrls = finalResultImages.map(img => img.url);
-    console.log('🎨 Extracting colors from these Round 3 result images:', imageUrls);
-    
+
     // Process images and extract colors
     Promise.all(imageUrls.map((url, index) => extractColorsFromImage(url, index)))
       .then(colorArrays => {
-        console.log('🎨 Raw color arrays from each image:', colorArrays.map(arr => arr.length));
-        
         // Track which colors came from which image
         const colorsByImage: { color: string; count: number; imageIndex: number }[] = [];
         colorArrays.forEach((colors, imageIndex) => {
@@ -298,9 +286,7 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
         
         // Store ALL extracted colors for regeneration (we'll use these later)
         setAllExtractedColors(colorsByImage);
-        
-        console.log('🎨 Total colors from all images:', colorsByImage.length);
-        
+
         // Separate into neutrals and accents based on saturation
         const neutrals: { color: string; count: number; saturation: number; imageIndex: number }[] = [];
         const accents: { color: string; count: number; saturation: number; imageIndex: number }[] = [];
@@ -319,8 +305,6 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
             accents.push({ ...colorData, saturation: hsl.s });
           }
         });
-        
-        console.log('🎨 Neutrals found:', neutrals.length, 'Accents found:', accents.length);
         
         // Sort neutrals by count (most frequent first), then by saturation (lowest first for true neutrals)
         neutrals.sort((a, b) => {
@@ -342,9 +326,6 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
         const selectedNeutrals = selectDiverseColorsFromAllImages(neutrals, 3, colorArrays.length);
         const selectedAccents = selectDiverseColorsFromAllImages(accents, 2, colorArrays.length);
         
-        console.log('🎨 Selected neutrals:', selectedNeutrals);
-        console.log('🎨 Selected accents:', selectedAccents);
-        
         // Combine into final palette
         const finalPalette = [
           ...selectedNeutrals,
@@ -356,8 +337,6 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
           const defaults = ['#E5E5E5', '#C0C0C0', '#808080', '#FF6B6B', '#4ECDC4'];
           finalPalette.push(defaults[finalPalette.length]);
         }
-        
-        console.log('🎨 Final palette:', finalPalette);
         
         setColorHistories(finalPalette.map(color => ({
           past: [],
@@ -400,7 +379,6 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
       
       img.onload = () => {
         try {
-          console.log(`✅ Image ${imageIndex + 1} loaded successfully`);
           const canvas = document.createElement('canvas');
           const ctx = canvas.getContext('2d');
           if (!ctx) {
@@ -446,8 +424,6 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
             .sort((a, b) => b.count - a.count)
             .slice(0, 40); // Top 40 colors from this image for more variety during regeneration
           
-          console.log(`🎨 Image ${imageIndex + 1} extracted ${colorArray.length} colors:`, colorArray.slice(0, 5).map(c => c.color));
-          console.log(`   Full palette from Image ${imageIndex + 1}:`, colorArray.map(c => c.color));
           resolve(colorArray);
         } catch (error) {
           console.error(`❌ Error processing image ${imageIndex + 1}:`, error);
@@ -496,10 +472,6 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
       imageColorCounts[i] = 0;
     }
     
-    console.log('🎨 Selecting diverse colors from all images...');
-    console.log('Total colors to select:', count);
-    console.log('Total images:', totalImages);
-    
     // Try to get at least one color from each image first
     for (let imageIdx = 0; imageIdx < totalImages && selected.length < count; imageIdx++) {
       const colorsFromThisImage = colors.filter(c => c.imageIndex === imageIdx);
@@ -516,7 +488,6 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
           selected.push(colorData.color);
           selectedDetails.push({ color: colorData.color, imageIndex: imageIdx });
           imageColorCounts[imageIdx]++;
-          console.log(`  ✓ Selected ${colorData.color} from Image ${imageIdx + 1}`);
           break; // Got one from this image, move to next
         }
       }
@@ -524,8 +495,6 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
     
     // If we still need more colors, get them from any image
     if (selected.length < count) {
-      console.log(`Still need ${count - selected.length} more colors, selecting from all images...`);
-      
       for (const colorData of colors) {
         if (selected.length >= count) break;
         
@@ -538,13 +507,10 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
           selected.push(colorData.color);
           selectedDetails.push({ color: colorData.color, imageIndex: colorData.imageIndex });
           imageColorCounts[colorData.imageIndex]++;
-          console.log(`  ✓ Selected ${colorData.color} from Image ${colorData.imageIndex + 1}`);
         }
       }
     }
-    
-    console.log('🎨 Color distribution by image:', imageColorCounts);
-    
+
     return selected;
   };
 
@@ -667,36 +633,24 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
   };
 
   const updateMainColor = (index: number, color: string) => {
-    console.log(`🎨 updateMainColor called - Index: ${index}, New Color: ${color}`);
-    console.log('Current history before update:', colorHistories[index]);
-    
     const newColorHistories = [...colorHistories];
     const currentColor = newColorHistories[index].current;
-    
-    // Only update if the color actually changed
-    if (currentColor === color) {
-      console.log('⚠️ Color unchanged, skipping update');
-      return;
-    }
-    
+
+    if (currentColor === color) return;
+
     newColorHistories[index] = {
       past: [...newColorHistories[index].past, currentColor],
       current: color,
       future: [],
     };
-    
-    console.log('New history after update:', newColorHistories[index]);
     setColorHistories(newColorHistories);
   };
 
   const undoColorChange = (index: number) => {
-    console.log(`⬅️ undoColorChange called - Index: ${index}`);
-    console.log('Current history:', colorHistories[index]);
-    
     const newColorHistories = [...colorHistories];
     const currentColor = newColorHistories[index].current;
     const pastColors = newColorHistories[index].past;
-    
+
     if (pastColors.length > 0) {
       const previousColor = pastColors[pastColors.length - 1];
       newColorHistories[index] = {
@@ -704,23 +658,15 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
         current: previousColor,
         future: [currentColor, ...newColorHistories[index].future],
       };
-      
-      console.log('Restoring color from:', currentColor, 'to:', previousColor);
-      console.log('New history after undo:', newColorHistories[index]);
       setColorHistories(newColorHistories);
-    } else {
-      console.log('⚠️ No past colors to undo');
     }
   };
 
   const redoColorChange = (index: number) => {
-    console.log(`➡️ redoColorChange called - Index: ${index}`);
-    console.log('Current history:', colorHistories[index]);
-    
     const newColorHistories = [...colorHistories];
     const currentColor = newColorHistories[index].current;
     const futureColors = newColorHistories[index].future;
-    
+
     if (futureColors.length > 0) {
       const nextColor = futureColors[0];
       newColorHistories[index] = {
@@ -728,12 +674,7 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
         current: nextColor,
         future: futureColors.slice(1),
       };
-      
-      console.log('Redoing color from:', currentColor, 'to:', nextColor);
-      console.log('New history after redo:', newColorHistories[index]);
       setColorHistories(newColorHistories);
-    } else {
-      console.log('⚠️ No future colors to redo');
     }
   };
 
@@ -772,10 +713,6 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
   };
 
   const regeneratePalette = () => {
-    console.log('🔄 Regenerating palette...');
-    console.log('Available neutrals:', extractedNeutrals.length);
-    console.log('Available accents:', extractedAccents.length);
-    
     if (extractedNeutrals.length === 0 && extractedAccents.length === 0) {
       console.warn('No extracted colors available for regeneration');
       return;
@@ -829,8 +766,6 @@ export function StepColorMapping({ onAddItem, onAddItemsVertical, onNext, journe
       const defaults = ['#E5E5E5', '#C0C0C0', '#808080', '#FF6B6B', '#4ECDC4'];
       newPalette.push(defaults[newPalette.length]);
     }
-    
-    console.log('🎨 Regenerated palette:', newPalette);
     
     // Reset histories with new colors
     setColorHistories(newPalette.map(color => ({
